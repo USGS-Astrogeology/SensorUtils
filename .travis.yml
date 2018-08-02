@@ -19,6 +19,7 @@ matrix:
 
 before_install:
   - eval "${MATRIX_EVAL}"
+  - pip install --user cpp-coveralls
 
 install:
   # Install a supported cmake version (>= 3.10)
@@ -33,7 +34,9 @@ install:
   - conda install -y -c conda-forge cmake
 
 script:
-  - cmake --version
-  - cmake .
+  - cmake -DCOVERAGE=1 .
   - cmake --build .
   - ctest
+ 
+after_success:
+  - coveralls --root . -E ".*gtest.*" -E ".*CMakeFiles.*"
