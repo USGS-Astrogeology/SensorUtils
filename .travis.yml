@@ -29,9 +29,11 @@ install:
    - curl -sSL https://cmake.org/files/v3.10/cmake-3.10.0-rc1-Linux-x86_64.sh -o ${CMAKE_INSTALLER}
    - chmod +x ${CMAKE_INSTALLER}
    - sudo ./${CMAKE_INSTALLER} --prefix=/usr/local --skip-license
-   - ls /usr/local/bin/
-   - ls /usr/local/
-   - cmake --version
+   - ls -l /usr/local/bin/
+   - ls -l /usr/local/
+   - /usr/local/cmake --version
+   - /usr/local/cmake/bin/cmake --version
+   - /usr/local/bin/cmake --version
    - echo $PATH
 
 script:
