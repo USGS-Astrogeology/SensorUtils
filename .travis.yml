@@ -25,16 +25,10 @@ install:
    - sudo apt-get purge cmake
    - wget -O cmake.sh https://cmake.org/files/v3.10/cmake-3.10.0-rc1-Linux-x86_64.sh
    - sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local
-    # - CMAKE_INSTALLER=install-cmake.sh
-    #- curl -sSL https://cmake.org/files/v3.10/cmake-3.10.0-rc1-Linux-x86_64.sh -o ${CMAKE_INSTALLER}
-    #- chmod +x ${CMAKE_INSTALLER}
-    #- sudo ./${CMAKE_INSTALLER} --prefix=/usr/local --skip-license
-   - ls -l /usr/local/bin/
-   - ls -l /usr/local/
-   - /usr/local/cmake/bin/cmake --version
    - /usr/local/bin/cmake --version
-   - echo $PATH
+   - export $PATH="/usr/local/bin:$PATH"
 
 script:
+  - cmake --version
   - cmake .
   - cmake --build .
