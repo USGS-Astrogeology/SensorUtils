@@ -23,8 +23,15 @@ before_install:
 install:
   # Install a supported cmake version (>= 3.10)
    - mkdir $HOME/cmake
-   - wget -O cmake.sh https://cmake.org/files/v3.10/cmake-3.10.0-rc1-Linux-x86_64.sh
-   - sudo sh cmake.sh --skip-license --exclude-subdir --prefix=$HOME/cmake
+   - |
+     if [ "$TRAVIS_OS_NAME" == "linux"]; then
+       wget -O cmake.sh https://cmake.org/files/v3.10/cmake-3.10.0-rc1-Linux-x86_64.sh;
+       sudo sh cmake.sh --skip-license --exclude-subdir --prefix=$HOME/cmake;
+     else
+       wget https://cmake.org/files/v3.10/cmake-3.10.0-Darwin-x86_64.tar.gz;
+       tar -xzvf cmake-3.10.0-Darwin-x86_64.tar.gz;
+       cp -r cmake-3.10.0-Darwin-x86_64/bin $HOME/cmake/;
+     fi
    - $HOME/cmake/bin/cmake --version
    - export PATH="$HOME/cmake/bin:$PATH"
 
