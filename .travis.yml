@@ -42,4 +42,4 @@ script:
  
 after_success:
   - cd build
-  - coveralls -i ../src -E ".*gtest*"
+  - coveralls --root `dirname $PWD` -E ".*gtest" --verbose
