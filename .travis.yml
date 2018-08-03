@@ -34,9 +34,12 @@ install:
   - conda install -y -c conda-forge cmake
 
 script:
-  - cmake -DCOVERAGE=1 .
+  - mkdir build
+  - cd build
+  - cmake -DCOVERAGE=ON ..
   - cmake --build .
   - ctest
  
 after_success:
+  - cd build
   - coveralls --root . -E ".*gtest.*" -E ".*CMakeFiles.*"
