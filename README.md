@@ -3,15 +3,15 @@
 ## Building
 
 1. Install armadillo
-  1.1 If you have conda:
+
+**If you have conda:**
 
 ```bash
 conda install armadillo
 ```
+  > *Make sure your environment is activated if you have a dedicated conda environment.*
 
-    > *Make sure your environment is activated if you have a dedicated conda environment.*
-
-  1.2 Otherwise:
+**Otherwise:**
 ```
 wget https://sourceforge.net/projects/arma/files/armadillo-8.600.0.tar.xz && \
 tar -xf armadillo-8.600.0.tar.xz && \
