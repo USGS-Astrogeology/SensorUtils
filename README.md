@@ -4,8 +4,7 @@
 
 1. Install armadillo
 1.1 If you have conda:
-```
-bash
+```bash
 conda install armadillo
 ```
 
