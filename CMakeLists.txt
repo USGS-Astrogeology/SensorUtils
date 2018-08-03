@@ -13,8 +13,8 @@ add_library(sensorutils SHARED
             src/SensorUtils.cpp)
 
 if(COVERAGE)
-    target_compile_options(sensorutils PRIVATE --coverage)
-    target_link_libraries(sensorutils PRIVATE --coverage)
+    target_compile_options(sensorutils PRIVATE --coverage -O0)
+    target_link_libraries(sensorutils PRIVATE --coverage -O0)
 endif()
 
 set_target_properties(sensorutils PROPERTIES
