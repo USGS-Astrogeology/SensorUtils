@@ -42,4 +42,4 @@ script:
  
 after_success:
   - cd build
-  - coveralls --root . -E ".*gtest.*" -E ".*CMakeFiles.*"
+  - coveralls --root -i src -E ".*gtest.*" -E ".*CMakeFiles.*"
