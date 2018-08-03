@@ -43,7 +43,7 @@ script:
   - cmake --build .
 
 after_success:
-  - ./tests/runTests
+  - ctest
   - |
     if [ "$TRAVIS_OS_NAME" == linux ]; then
       coveralls --root $(dirname $PWD) -i src --verbose;
