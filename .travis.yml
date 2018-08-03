@@ -42,4 +42,4 @@ script:
  
 after_success:
   - cd build
-  - coveralls -i src -E ".*gtest*" -E ".*CMakeFile*"
+  - coveralls -i src -E ".*gtest*" -E ".*CMakeFile*" --build-root . --gcov-options '\-lp'
