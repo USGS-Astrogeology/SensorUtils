@@ -62,6 +62,7 @@ double PhaseAngle(const std::vector<double> &observerBodyFixedPosition,
     if(cos_angle <= -1.0) return M_PI;
 	
     return acos(cos_angle);
+    
 
 }
 

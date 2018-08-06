@@ -7,8 +7,9 @@ TEST(SensorUtils, PhaseAngle) {
    vector<double> instrumentPosition1{-1, 0, 0};
    vector<double> sunPosition1{1, 0, 0};
    vector<double> surfaceIntersection1{0, 0, 0};
-   EXPECT_EQ(2.0*M_PI, PhaseAngle(instrumentPosition1, sunPosition1, surfaceIntersection1));
-
+   EXPECT_EQ(M_PI, PhaseAngle(instrumentPosition1, sunPosition1, surfaceIntersection1));
+   cout<<"From your test, we got this: "<<PhaseAngle(instrumentPosition1, sunPosition1, surfaceIntersection1)<<std::endl;
+   
    vector<double> instrumentPosition2{0, 1, 0};
    vector<double> sunPosition2{0, 1, 0};
    vector<double> surfaceIntersection2{0, 0, 0};
