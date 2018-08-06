@@ -54,9 +54,12 @@ double PhaseAngle(const std::vector<double> &observerBodyFixedPosition,
     surfaceToSun = illuminator - surface; 
     normSurfaceToSun = arma::normalise(surfaceToSun);
 
-    double dotPr=arma::dot(normSurfaceToObserver,normSurfaceToSun);
+    double cos_angle=arma::dot(normSurfaceToObserver,normSurfaceToSun);
    
-    return acos(dotPr);
+    if(cos_angle >= 1.0) return 0.0; 
+    if(cos_angle <= -1.0) return 180.0;
+	
+    return acos(cos_angle);
 
 }
 
