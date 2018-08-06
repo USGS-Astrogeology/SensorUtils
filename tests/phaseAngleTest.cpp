@@ -3,10 +3,6 @@
 #include <gtest/gtest.h>
 
 TEST(SensorUtils, PhaseAngle) {
-   //vector<double> instrumentPosition{0, 0, 0};
-   //vector<double> sunPosition{0, 0, 0};
-   //vector<double> surfaceIntersection{0, 0, 0};
-   //EXPECT_EQ(0, PhaseAngle(instrumentPosition, sunPosition, surfaceIntersection));
 
    vector<double> instrumentPosition1{-1, 0, 0};
    vector<double> sunPosition1{1, 0, 0};
