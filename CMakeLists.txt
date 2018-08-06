@@ -7,8 +7,15 @@ include(GoogleTest)
 
 set(CMAKE_CXX_STANDARD 11)
 
+set(COVERAGE OFF CACHE BOOL "Coverage")
+
 add_library(sensorutils SHARED
             src/SensorUtils.cpp)
+
+if(COVERAGE)
+    target_compile_options(sensorutils PRIVATE --coverage -O0)
+    target_link_libraries(sensorutils PRIVATE --coverage -O0)
+endif()
 
 set_target_properties(sensorutils PROPERTIES
     VERSION ${PROJECT_VERSION}
@@ -16,17 +23,22 @@ set_target_properties(sensorutils PROPERTIES
     PUBLIC_HEADER SensorUtils.h
 )
 
+find_package(Threads)
+
+# This is the linear algebra library we are using
+find_package(Armadillo REQUIRED)
 
 target_include_directories(sensorutils
                            PUBLIC
                            include/sensorutils
                            include/
+                           ${ARMADILLO_INCLUDE_DIRS}
 )
 
-find_package (Threads)
 
-target_link_libraries(sensorutils
-                      gtest ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(sensorutils PUBLIC
+                      gtest ${CMAKE_THREAD_LIBS_INIT}
+                      ${ARMADILLO_LIBRARIES})
 
 install(TARGETS sensorutils
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
