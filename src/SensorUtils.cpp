@@ -17,6 +17,8 @@ using namespace std;
    * the observer (usually the spacecraft) and the vector from the surface intersection
    * point to the illuminator (usually the sun).
    *
+   * @author Kaj Williams
+   *
    * @param observerBodyFixedPosition  Three dimensional position of the observer,
    *                                   in the coordinate system of the target body.
    * @param illuminatorBodyFixedPosition Three dimensional position for the illuminator,
