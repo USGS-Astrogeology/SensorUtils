@@ -13,17 +13,17 @@ using namespace std;
    * Computes and returns phase angle, in radians, given the positions of the
    * observer and illuminator.
    *
-   * Phase Angle: The angle between the vector from the intersection point to
-   * the observer (usually the spacecraft) and the vector from the intersection
+   * Phase Angle: The angle between the vector from the surface intersection point to
+   * the observer (usually the spacecraft) and the vector from the surface intersection
    * point to the illuminator (usually the sun).
    *
    * @param observerBodyFixedPosition  Three dimensional position of the observer,
    *                                   in the coordinate system of the target body.
    * @param illuminatorBodyFixedPosition Three dimensional position for the illuminator,
    *                                     in the body-fixed coordinate system.
-   * @param surfaceIntersection Three dimensional position for the ground point,
+   * @param surfaceIntersection Three dimensional position for the ground (surface intersection) point,
    *                                     in the body-fixed coordinate system.
-   * @return @b double Phase angle, in radians (was degrees).
+   * @return @b double Phase angle, in radians.
    */
 
 double PhaseAngle(const std::vector<double> &observerBodyFixedPosition,
@@ -39,29 +39,24 @@ double PhaseAngle(const std::vector<double> &observerBodyFixedPosition,
     illuminator = arma::conv_to<arma::vec>::from(illuminatorBodyFixedPosition);
 
     //convert the surfaceIntersection vector to an arma::vec
-    arma::vec pB = arma::zeros<arma::vec>(3);
-    pB = arma::conv_to<arma::vec>::from(surfaceIntersection);    
+    arma::vec surface = arma::zeros<arma::vec>(3);
+    surface = arma::conv_to<arma::vec>::from(surfaceIntersection);    
 
     // Get vector from surface point to observer and normalise it 
-    arma::vec psB = arma::zeros<arma::vec>(3);
-    arma::vec upsB = arma::zeros<arma::vec>(3);
-    arma::vec dist = arma::zeros<arma::vec>(3);
-    psB = observer - pB; 
-    upsB = arma::normalise(psB);
+    arma::vec surfaceToObserver = arma::zeros<arma::vec>(3);
+    arma::vec normSurfaceToObserver = arma::zeros<arma::vec>(3);
+    surfaceToObserver = observer - surface; 
+    normSurfaceToObserver = arma::normalise(surfaceToObserver);
 
     // Get vector from surface point to sun and normalise it
-    arma::vec puB = arma::zeros<arma::vec>(3);
-    arma::vec upuB = arma::zeros<arma::vec>(3);
-    puB = illuminator - pB; 
-    upuB = arma::normalise(puB);
+    arma::vec surfaceToSun = arma::zeros<arma::vec>(3);
+    arma::vec normSurfaceToSun = arma::zeros<arma::vec>(3);
+    surfaceToSun = illuminator - surface; 
+    normSurfaceToSun = arma::normalise(surfaceToSun);
 
-    double dotpr=arma::dot(upsB,upuB);
-
-    // How can these lines be tested???
-    if(dotpr > 1.0) return 0.0; 
-    if(dotpr < -1.0) return M_PI;
+    double dotPr=arma::dot(normSurfaceToObserver,normSurfaceToSun);
    
-    return acos(dotpr);
+    return acos(dotPr);
 
 }
 
