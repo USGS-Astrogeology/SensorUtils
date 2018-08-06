@@ -59,7 +59,7 @@ double PhaseAngle(const std::vector<double> &observerBodyFixedPosition,
     double cos_angle=arma::dot(normSurfaceToObserver,normSurfaceToSun);
    
     if(cos_angle >= 1.0) return 0.0; 
-    if(cos_angle <= -1.0) return 180.0;
+    if(cos_angle <= -1.0) return M_PI;
 	
     return acos(cos_angle);
 
