@@ -42,9 +42,10 @@ install:
 script:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/*;
+      $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/* &> $HOME/linter.out;
       if [ "$?" != "0" ]; then
-        echo "Errors with linting!";
+        echo -e "Errors with linting:";
+        cat $HOME/linter.out;
         exit 1;
       fi
     fi
