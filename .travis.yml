@@ -22,6 +22,9 @@ before_install:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       pip install --user cpp-coveralls;
+      cd $HOME;
+      wget https://raw.githubusercontent.com/google/styleguide/gh-pages/cpplint/cpplint.py;
+      chmod +x cpplint.py;
     fi
 
 install:
@@ -37,6 +40,14 @@ install:
   - conda install -y -c conda-forge cmake armadillo
   
 script:
+  - |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/*;
+      if [ "$?" != "0" ]; then
+        echo "Errors with linting!";
+        exit 1;
+      fi
+    fi
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON ..
