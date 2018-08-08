@@ -44,8 +44,7 @@ script:
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/* &> $HOME/linter.out;
       if [ "$?" != "0" ]; then
-        echo -e "Errors with linting:";
-        cat $HOME/linter.out;
+        echo -e "Errors with linting!";
         exit 1;
       fi
     fi
@@ -60,3 +59,6 @@ after_success:
     if [ "$TRAVIS_OS_NAME" == linux ]; then
       coveralls --root $(dirname $PWD) -i src --verbose;
     fi
+
+after_failure:
+  - cat $HOME/linter.out;
