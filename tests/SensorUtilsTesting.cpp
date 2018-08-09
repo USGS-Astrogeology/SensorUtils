@@ -2,45 +2,45 @@
 #include <cmath>
 #include <gtest/gtest.h>
 
-TEST(SensorUtils, Distance) {
+TEST(SensorUtils, distance) {
   // Easy hand-calculation: sqrt(1^2 + 2^2 + 2^2) ==> sqrt(9) ==> 3
   vector<double> observer{10, 10, 10};
   vector<double> intersection{9, 8, 8};
-  EXPECT_EQ(3.0, Distance(observer, intersection));
+  EXPECT_EQ(3.0, distance(observer, intersection));
 
   // Observer is "inside" the target body (|intersection| > |observer|)
   // Is this the same as a negative distance?
-  EXPECT_EQ(0.0, Distance(intersection, observer));
+  EXPECT_EQ(0.0, distance(intersection, observer));
 
   // Zero distance (observer on the target exactly)
   vector<double> zero{0.0, 0.0, 0.0};
-  EXPECT_EQ(0.0, Distance(zero, zero));
+  EXPECT_EQ(0.0, distance(zero, zero));
 }
 
-TEST(SensorUtils, Resolution) {
+TEST(SensorUtils, resolution) {
   double distance = 10.0; // km
   double focalLength = 500; // mm
   double pixelPitch = 0.1; // mm
   double summing = 1.0; // no summing (no binning)
-  EXPECT_EQ(2.0, Resolution(distance, focalLength, pixelPitch, summing));
+  EXPECT_EQ(2.0, resolution(distance, focalLength, pixelPitch, summing));
 
   // Negative distance
-  EXPECT_EQ(0.0, Resolution(-1.0 * distance, focalLength, pixelPitch, summing));
+  EXPECT_EQ(0.0, resolution(-1.0 * distance, focalLength, pixelPitch, summing));
 
   // Negative focal length
-  EXPECT_EQ(0.0, Resolution(distance, -1.0 * focalLength, pixelPitch, summing));
+  EXPECT_EQ(0.0, resolution(distance, -1.0 * focalLength, pixelPitch, summing));
   
   // Negative pixel pitch
-  EXPECT_EQ(0.0, Resolution(distance, focalLength, -1.0 * pixelPitch, summing));
+  EXPECT_EQ(0.0, resolution(distance, focalLength, -1.0 * pixelPitch, summing));
 
   // Negative summing
-  EXPECT_EQ(0.0, Resolution(distance, focalLength, pixelPitch, -1.0 * summing));
+  EXPECT_EQ(0.0, resolution(distance, focalLength, pixelPitch, -1.0 * summing));
 
   // Zero pixel pitch
-  EXPECT_EQ(0.0, Resolution(distance, focalLength, 0.0, summing));
+  EXPECT_EQ(0.0, resolution(distance, focalLength, 0.0, summing));
 
   // Zero (focalLength / pixelPitch)
-  EXPECT_EQ(INFINITY, Resolution(distance, 0.0, 1.0, summing));
+  EXPECT_EQ(INFINITY, resolution(distance, 0.0, 1.0, summing));
 }
 
 TEST(SensorUtils, EmissionAngle) {

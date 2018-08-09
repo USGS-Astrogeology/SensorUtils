@@ -11,7 +11,8 @@ using namespace std;
 
 using namespace arma;
 
-double Distance(const vector<double>& observerBodyFixedPosition,
+
+double distance(const vector<double>& observerBodyFixedPosition,
                 const vector<double>& surfaceIntersection) {
   arma::vec observerPosition(observerBodyFixedPosition);
   arma::vec intersection(surfaceIntersection);
@@ -21,14 +22,12 @@ double Distance(const vector<double>& observerBodyFixedPosition,
   return std::sqrt(sum(squared));
 }
 
-double Resolution(double distance, double focalLength, double pixelPitch, double summing) {
+double resolution(double distance, double focalLength, double pixelPitch, double summing) {
   if (distance < 0.0 || focalLength < 0.0 || pixelPitch < 0.0 || summing < 0.0) {
     return 0.0;
   }
   return (distance / (focalLength / pixelPitch)) * summing * 1000.0;
 }
-
-using namespace arma;
 
 
  /**
