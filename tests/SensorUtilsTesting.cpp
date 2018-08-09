@@ -2,52 +2,89 @@
 #include <cmath>
 #include <gtest/gtest.h>
 
-TEST(SensorUtils, distance) {
+TEST(distance, positive) {
   // Easy hand-calculation: sqrt(1^2 + 2^2 + 2^2) ==> sqrt(9) ==> 3
   vector<double> observer{10, 10, 10};
   vector<double> intersection{9, 8, 8};
   EXPECT_EQ(3.0, distance(observer, intersection));
-
-  // Observer is "inside" the target body (|intersection| > |observer|)
-  // Is this the same as a negative distance?
-  EXPECT_EQ(0.0, distance(intersection, observer));
-
-  // Zero distance (observer on the target exactly)
-  vector<double> zero{0.0, 0.0, 0.0};
-  EXPECT_EQ(0.0, distance(zero, zero));
 }
 
-TEST(SensorUtils, resolution) {
+TEST(distance, negative) {
+  // Observer is "inside" the target body (|intersection| > |observer|)
+  // Is this the same as a negative distance?
+  vector<double> observer{9, 8, 8};
+  vector<double> intersection{10, 10, 10};
+  EXPECT_EQ(0.0, distance(intersection, observer));
+}
+
+TEST(distance, zero) {
+  // Zero distance (observer on the target exactly)
+  vector<double> zero{0.0, 0.0, 0.0};
+  EXPECT_EQ(0.0, distance(zero, zero));   
+}
+
+TEST(resolution, allPositive) {
   double distance = 10.0; // km
   double focalLength = 500; // mm
   double pixelPitch = 0.1; // mm
   double summing = 1.0; // no summing (no binning)
-  EXPECT_EQ(2.0, resolution(distance, focalLength, pixelPitch, summing));
+  EXPECT_EQ(2.0, resolution(distance, focalLength, pixelPitch, summing)); 
+}
 
+TEST(resolution, summingGreaterThanOne) {
+  double distance = 10.0; // km
+  double focalLength = 500; // mm
+  double pixelPitch = 0.1; // mm
+  double summing = 2.0; // summing of 2 pixels together (losing resolution)
+  EXPECT_EQ(4.0, resolution(distance, focalLength, pixelPitch, summing));
+}
+
+TEST(resolution, negativeDistance) {
   // Negative distance
+  double distance = -10.0; // km
+  double focalLength = 500; // mm
+  double pixelPitch = 0.1; // mm
+  double summing = 1.0; // no summing (no binning)
   EXPECT_EQ(0.0, resolution(-1.0 * distance, focalLength, pixelPitch, summing));
+}
 
+TEST(resolution, negativeFocalLength) {
   // Negative focal length
+  double distance = 10.0; // km
+  double focalLength = -500; // mm
+  double pixelPitch = 0.1; // mm
+  double summing = 1.0; // no summing (no binning)
   EXPECT_EQ(0.0, resolution(distance, -1.0 * focalLength, pixelPitch, summing));
-  
+}
+
+TEST(resolution, negativePixelPitch) {
   // Negative pixel pitch
+  double distance = 10.0; // km
+  double focalLength = 500; // mm
+  double pixelPitch = -0.1; // mm
+  double summing = 1.0; // no summing (no binning)
   EXPECT_EQ(0.0, resolution(distance, focalLength, -1.0 * pixelPitch, summing));
+}
 
+TEST(resolution, negativeSumming) {
   // Negative summing
+  double distance = 10.0; // km
+  double focalLength = 500; // mm
+  double pixelPitch = 0.1; // mm
+  double summing = -1.0; // no summing (no binning)
   EXPECT_EQ(0.0, resolution(distance, focalLength, pixelPitch, -1.0 * summing));
+}
 
+TEST(resolution, zeroDivisors) {
+  double distance = 10.0; // km
+  double focalLength = 500; // mm
+  double pixelPitch = 0.0; // mm
+  double summing = 1.0; // no summing (no binning)
   // Zero pixel pitch
-  EXPECT_EQ(0.0, resolution(distance, focalLength, 0.0, summing));
-
+  EXPECT_EQ(0.0, resolution(distance, focalLength, pixelPitch, summing));
   // Zero (focalLength / pixelPitch)
   EXPECT_EQ(INFINITY, resolution(distance, 0.0, 1.0, summing));
 }
-
-TEST(SensorUtils, EmissionAngle) {
-   vector<double> observerBodyFixedPosition1{-2399.5377741187439824,-2374.0338295628557717,1277.6750059817834426};
-   vector<double> groundPtIntersection1{-2123.3622582859998147,-2380.37178122360001,1194.6783966636000969};
-   vector<double> surfaceNormal1{-0.62338400000000004919,-0.69883799999999995922,0.35073799999999999422};
-   EXPECT_NEAR(0.81971651917135968102, EmissionAngle(observerBodyFixedPosition1, groundPtIntersection1,surfaceNormal1),1e-5);
 
 TEST(EmissionAngle,zerosForAllInputs) {
 
