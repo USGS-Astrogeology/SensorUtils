@@ -64,4 +64,5 @@ after_success:
   - conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION recipe -q
 
 after_failure:
+  - echo -e "TEST (REMOVE THIS LINE)";
   - cat $HOME/linter.out;
