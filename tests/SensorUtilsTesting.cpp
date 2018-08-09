@@ -29,7 +29,6 @@ TEST(SensorUtils, EmissionAngle) {
 
 }
 
-
 TEST(SensorUtils, PhaseAngle) {
 
    vector<double> instrumentPosition1{-1, 0, 0};
@@ -48,6 +47,20 @@ TEST(SensorUtils, PhaseAngle) {
    vector<double> surfaceIntersection3{0, 0, 0};
    EXPECT_EQ(M_PI/2.0, PhaseAngle(instrumentPosition3, sunPosition3, surfaceIntersection3));
 
+
+}
+
+/**
+ * Testing general case for illuminatorPosition method.
+ */
+TEST(illuminatorPosition, SensorUtils) {
+
+   vector<double> surfaceIntersection{0, 1, 0};
+   vector<double> illuminatorDirection{-1, 0, 1};
+   vector<double> sunPosition{1, 1, -1};
+   vector<double> illumPos = arma::conv_to< std::vector<double> >::from(illuminatorPosition(surfaceIntersection, 
+                                                                                            illuminatorDirection));
+   EXPECT_EQ(sunPosition, illumPos);
 
 }
 

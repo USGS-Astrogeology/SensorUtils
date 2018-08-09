@@ -128,8 +128,8 @@ double EmissionAngle(const vector<double>  &observerBodyFixedPosition,
  *
  * @return The position of the illuminator in body fixed coordinate system.
  */
-arma:vec illuminatorPosition(const arma:vec &groundPointIntersection,
-                             const arma:vec &illuminatorDirection) {
+arma::vec illuminatorPosition(const arma::vec &groundPointIntersection,
+                              const arma::vec &illuminatorDirection) {
   // sun pos (center body to center sun)
   // is body fixed ground coordinated (center body to ground point)
   // minus the illumination direction (center sun to ground point)
