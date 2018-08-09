@@ -40,12 +40,9 @@ install:
   - conda install -y -c conda-forge cmake armadillo
   
 script:
-  - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      ls .;
-      ls . 2>&1;
-      $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/*;
-    fi
+  - ls .
+  - ls . 2>&1
+  - $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/*
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON ..
