@@ -10,4 +10,6 @@ double EmissionAngle(const vector<double>  &observerBodyFixedPosition,
                      const vector<double> &groundPtIntersection,
                      const vector<double> &surfaceNormal);
 
+vector<double> sunPosition(const vector<double> &groundPointIntersection,
+		           const vector<double> &illuminatorDirection);
 #endif
