@@ -2,6 +2,9 @@
 #include <cmath>
 #include <gtest/gtest.h>
 
+/**
+ * Test distance() function.
+ */
 TEST(distance, positive) {
   // Easy hand-calculation: sqrt(1^2 + 2^2 + 2^2) ==> sqrt(9) ==> 3
   vector<double> observer{10, 10, 10};
@@ -23,6 +26,9 @@ TEST(distance, zero) {
   EXPECT_EQ(0.0, distance(zero, zero));   
 }
 
+/**
+ * Test resolution() function
+ */
 TEST(resolution, allPositive) {
   double distance = 10.0; // km
   double focalLength = 500; // mm
