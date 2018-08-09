@@ -189,7 +189,7 @@ double EmissionAngle(const vector<double>  &observerBodyFixedPosition,
  * to the observed body fixed position. It requires a ground intersection point
  * and the illuminator direction vector. 
  *
- * @author Kaj Williams
+ * @author Jeannie Backer
  *
  * @param groundPointIntersection A point on the surface of the observed body,
  *                                in body fixed coordinate system.
