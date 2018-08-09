@@ -5,19 +5,23 @@
 
 #include <armadillo>
 
-using namespace std;
+using namespace arma;
 
-double LineResolution(double focalLength,
-                      double lineSumming,
-                      double pixelPitch,
-                      const vector<double>& instrumentPosition,
-                      const vector<double>& surfaceIntersection) {
-    arma::vec instPos(instrumentPosition);
-    arma::vec intersection(surfaceIntersection);
-    arma::vec diff = instPos - intersection;
-    arma::vec squared = arma::pow(diff, 2);
-    double distance = std::sqrt(arma::sum(squared)) * 1000.0;
-    return (distance / (focalLength / pixelPitch)) * lineSumming;
+double Distance(const vector<double>& observerBodyFixedPosition,
+                const vector<double>& surfaceIntersection) {
+  arma::vec observerPosition(observerBodyFixedPosition);
+  arma::vec intersection(surfaceIntersection);
+  arma::vec absoluteDifference = abs(observerPosition - intersection);
+  arma::vec squared = pow(absoluteDifference, 2);
+  // Square root of the sum-of-squares gives us Euclidean distance
+  return std::sqrt(sum(squared));
+}
+
+double Resolution(double distance, double focalLength, double pixelPitch, double summing) {
+  if (distance < 0.0 || focalLength < 0.0 || pixelPitch < 0.0 || summing < 0.0) {
+    return 0.0;
+  }
+  return (distance / (focalLength / pixelPitch)) * summing * 1000.0;
 }
 
 

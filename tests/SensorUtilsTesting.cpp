@@ -2,6 +2,47 @@
 #include <cmath>
 #include <gtest/gtest.h>
 
+TEST(SensorUtils, Distance) {
+  // Easy hand-calculation: sqrt(1^2 + 2^2 + 2^2) ==> sqrt(9) ==> 3
+  vector<double> observer{10, 10, 10};
+  vector<double> intersection{9, 8, 8};
+  EXPECT_EQ(3.0, Distance(observer, intersection));
+
+  // Observer is "inside" the target body (|intersection| > |observer|)
+  // Is this the same as a negative distance?
+  EXPECT_EQ(0.0, Distance(intersection, observer));
+
+  // Zero distance (observer on the target exactly)
+  vector<double> zero{0.0, 0.0, 0.0};
+  EXPECT_EQ(0.0, Distance(zero, zero));
+}
+
+TEST(SensorUtils, Resolution) {
+  double distance = 10.0; // km
+  double focalLength = 500; // mm
+  double pixelPitch = 0.1; // mm
+  double summing = 1.0; // no summing (no binning)
+  EXPECT_EQ(2.0, Resolution(distance, focalLength, pixelPitch, summing));
+
+  // Negative distance
+  EXPECT_EQ(0.0, Resolution(-1.0 * distance, focalLength, pixelPitch, summing));
+
+  // Negative focal length
+  EXPECT_EQ(0.0, Resolution(distance, -1.0 * focalLength, pixelPitch, summing));
+  
+  // Negative pixel pitch
+  EXPECT_EQ(0.0, Resolution(distance, focalLength, -1.0 * pixelPitch, summing));
+
+  // Negative summing
+  EXPECT_EQ(0.0, Resolution(distance, focalLength, pixelPitch, -1.0 * summing));
+
+  // Zero pixel pitch
+  EXPECT_EQ(0.0, Resolution(distance, focalLength, 0.0, summing));
+
+  // Zero (focalLength / pixelPitch)
+  EXPECT_EQ(INFINITY, Resolution(distance, 0.0, 1.0, summing));
+}
+
 TEST(SensorUtils, EmissionAngle) {
    vector<double> observerBodyFixedPosition1{-2399.5377741187439824,-2374.0338295628557717,1277.6750059817834426};
    vector<double> groundPtIntersection1{-2123.3622582859998147,-2380.37178122360001,1194.6783966636000969};
