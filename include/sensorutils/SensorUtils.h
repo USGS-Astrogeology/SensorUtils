@@ -14,4 +14,9 @@ double EmissionAngle(const vector<double>  &observerBodyFixedPosition,
 
 vec illuminatorPosition(const vec &groundPointIntersection,
                         const vec &illuminatorDirection);
+
+vector<double> rect2lat(const vector<double> rectangularCoords);
+
+vector <double> computeRADec(const vector<double> rectangularCoords);
+
 #endif
