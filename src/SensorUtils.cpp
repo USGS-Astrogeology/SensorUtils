@@ -115,7 +115,18 @@ double EmissionAngle(const vector<double>  &observerBodyFixedPosition,
 
 
 /**
- * This method calculates the position of the illuminator 
+ * This method calculates the position of the illuminator with respect
+ * to the observed body fixed position. It requires a ground intersection point
+ * and the illuminator direction vector. 
+ *
+ * @author Kaj Williams
+ *
+ * @param groundPointIntersection A point on the surface of the observed body,
+ *                                in body fixed coordinate system.
+ * @param illuminatorDirection An illuminator direction vector, 
+ *                             in illuminator center coordinate system.
+ *
+ * @return The position of the illuminator in body fixed coordinate system.
  */
 arma:vec illuminatorPosition(const arma:vec &groundPointIntersection,
                              const arma:vec &illuminatorDirection) {
