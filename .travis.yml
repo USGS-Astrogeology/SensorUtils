@@ -42,6 +42,8 @@ install:
 script:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      ls .;
+      ls . 2>&1;
       $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/*;
     fi
   - mkdir build
