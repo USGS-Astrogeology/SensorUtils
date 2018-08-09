@@ -14,7 +14,7 @@ TEST(distance, negative) {
   // Is this the same as a negative distance?
   vector<double> observer{9, 8, 8};
   vector<double> intersection{10, 10, 10};
-  EXPECT_EQ(0.0, distance(intersection, observer));
+  EXPECT_EQ(3.0, distance(intersection, observer));
 }
 
 TEST(distance, zero) {
@@ -45,7 +45,7 @@ TEST(resolution, negativeDistance) {
   double focalLength = 500; // mm
   double pixelPitch = 0.1; // mm
   double summing = 1.0; // no summing (no binning)
-  EXPECT_EQ(0.0, resolution(-1.0 * distance, focalLength, pixelPitch, summing));
+  EXPECT_EQ(0.0, resolution(distance, focalLength, pixelPitch, summing));
 }
 
 TEST(resolution, negativeFocalLength) {
@@ -54,7 +54,7 @@ TEST(resolution, negativeFocalLength) {
   double focalLength = -500; // mm
   double pixelPitch = 0.1; // mm
   double summing = 1.0; // no summing (no binning)
-  EXPECT_EQ(0.0, resolution(distance, -1.0 * focalLength, pixelPitch, summing));
+  EXPECT_EQ(0.0, resolution(distance, focalLength, pixelPitch, summing));
 }
 
 TEST(resolution, negativePixelPitch) {
@@ -63,7 +63,7 @@ TEST(resolution, negativePixelPitch) {
   double focalLength = 500; // mm
   double pixelPitch = -0.1; // mm
   double summing = 1.0; // no summing (no binning)
-  EXPECT_EQ(0.0, resolution(distance, focalLength, -1.0 * pixelPitch, summing));
+  EXPECT_EQ(0.0, resolution(distance, focalLength, pixelPitch, summing));
 }
 
 TEST(resolution, negativeSumming) {
@@ -72,7 +72,7 @@ TEST(resolution, negativeSumming) {
   double focalLength = 500; // mm
   double pixelPitch = 0.1; // mm
   double summing = -1.0; // no summing (no binning)
-  EXPECT_EQ(0.0, resolution(distance, focalLength, pixelPitch, -1.0 * summing));
+  EXPECT_EQ(0.0, resolution(distance, focalLength, pixelPitch, summing));
 }
 
 TEST(resolution, zeroDivisors) {
