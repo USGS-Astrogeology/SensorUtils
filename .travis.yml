@@ -40,8 +40,8 @@ install:
   - conda install -y -c conda-forge cmake armadillo
   
 script:
-  - ls .
-  - ls . 2>&1
+  - ls -l .
+  - ls -l . 2>&1
   - $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/*
   - mkdir build
   - cd build
