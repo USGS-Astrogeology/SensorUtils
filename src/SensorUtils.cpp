@@ -12,16 +12,47 @@ using namespace std;
 using namespace arma;
 
 
+/**
+ * Computes the Euclidean distance in kilometers between two body-fixed positions.
+ *
+ * This function computes the Euclidean distance between a body-fixed observer vector and
+ * a body-fixed surface intersection (ground point) vector.
+ *
+ * @author Ian Humphrey
+ *
+ * @param observerBodyFixedPosition Body-fixed XYZ coordinate of the observer (km)
+ * @param surfaceIntersection Body-fixed XYZ coordinate of the intersection on the surface from
+ *                            the look direction of the observer (km)
+ *
+ * @return double Returns the Euclidean distance (in kilometers)
+ */
 double distance(const vector<double>& observerBodyFixedPosition,
                 const vector<double>& surfaceIntersection) {
-  arma::vec observerPosition(observerBodyFixedPosition);
-  arma::vec intersection(surfaceIntersection);
-  arma::vec absoluteDifference = abs(observerPosition - intersection);
-  arma::vec squared = pow(absoluteDifference, 2);
-  // Square root of the sum-of-squares gives us Euclidean distance
+  vec observerPosition(observerBodyFixedPosition);
+  vec intersection(surfaceIntersection);
+  vec distanceVector = observerPosition - intersection;
+  // Find the magnitude of the distance vector (Euclidean distance) 
+  vec squared = pow(distanceVector, 2);
   return std::sqrt(sum(squared));
 }
 
+
+/**
+ * Computes the resolution of a sensor based on distance from the point-of-interest, focal
+ * length, pixel pitch (size of pixel), and summing mode (scale factor).
+ *
+ * Resolution is computed as meters per pixel.
+ *
+ * @author Ian Humphrey
+ *
+ * @param distance Distance between the sensor and the point-of-interest (km)
+ * @param focalLength Focal length of the sensor (mm)
+ * @param pixelPitch Size of a pixel on the sensor (mm)
+ * @param summing Summing mode of the sensor
+ *
+ * @return double Returns the resolution of the distance between the sensor and the
+ *                point-of-interest in meters/pixel.
+ */
 double resolution(double distance, double focalLength, double pixelPitch, double summing) {
   if (distance < 0.0 || focalLength < 0.0 || pixelPitch < 0.0 || summing < 0.0) {
     return 0.0;
