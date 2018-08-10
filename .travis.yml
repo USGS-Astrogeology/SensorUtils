@@ -42,7 +42,8 @@ install:
 before_script:
   - lintfilters=""
   - lintroot=build/${TRAVIS_REPO_SLUG}/include/sensorutils
-  - python2 $HOME/cpplint.py --root=$lintroot include/sensorutils/* src/* 2> $HOME/lint.txt
+  - which python2
+  - python2 $HOME/cpplint.py --root=${lintroot} include/sensorutils/* src/* 2> $HOME/lint.txt
 
 script:
   - mkdir build
