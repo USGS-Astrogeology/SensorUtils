@@ -1,6 +1,7 @@
 #include "SensorUtils.h"
 
 #include <cfloat>
+#include <cmath>
 
 #include <iostream>
 #include <vector>
@@ -31,9 +32,7 @@ double distance(const vector<double>& observerBodyFixedPosition,
   vec observerPosition(observerBodyFixedPosition);
   vec intersection(surfaceIntersection);
   vec distanceVector = observerPosition - intersection;
-  // Find the magnitude of the distance vector (Euclidean distance) 
-  vec squared = pow(distanceVector, 2);
-  return std::sqrt(sum(squared));
+  return as_scalar(norm(distanceVector));
 }
 
 
@@ -41,7 +40,8 @@ double distance(const vector<double>& observerBodyFixedPosition,
  * Computes the resolution of a sensor based on distance from the point-of-interest, focal
  * length, pixel pitch (size of pixel), and summing mode (scale factor).
  *
- * Resolution is computed as meters per pixel.
+ * Resolution is computed as meters per pixel. If any of the input parameters are negative,
+ * this function returns 0.0. If focalLength or pixelPitch is 0.0, this function returns 0.0.
  *
  * @author Ian Humphrey
  *
@@ -51,12 +51,16 @@ double distance(const vector<double>& observerBodyFixedPosition,
  * @param summing Summing mode of the sensor
  *
  * @return double Returns the resolution of the distance between the sensor and the
- *                point-of-interest in meters/pixel.
+ *                point-of-interest in meters/pixel. Returns 0.0 if any parameter is
+ *                negative.
  */
 double resolution(double distance, double focalLength, double pixelPitch, double summing) {
-  if (distance < 0.0 || focalLength < 0.0 || pixelPitch < 0.0 || summing < 0.0) {
+  // Make sure none of inputs are negative, and focalLength and pixelPitch can not be zero,
+  // so we don't divide by zero.
+  if (distance < 0.0 || focalLength <= 0.0 || pixelPitch <= 0.0 || summing < 0.0) {
     return 0.0;
   }
+
   return (distance / (focalLength / pixelPitch)) * summing * 1000.0;
 }
 
