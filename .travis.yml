@@ -41,6 +41,8 @@ install:
 
 before_script:
   - ls -l . 
+  - ls -l build
+  - ls -l build/USGS-Astrogeology/SensorUtils
   - rootdir=$HOME/build/${TRAVIS_REPO_SLUG}
   - $HOME/cpplint.py --root=${rootdir}/include/sensorutils ${rootdir}/include/sensorutils/* ${rootdir}/src/*
 
