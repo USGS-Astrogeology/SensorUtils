@@ -45,7 +45,6 @@ before_script
   - python2 $HOME/cpplint.py --root=$lintroot include/sensorutils/* src/* 2> $HOME/lint.txt
 
 script:
-  #- $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/* 2> $HOME/lint.txt
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON ..
