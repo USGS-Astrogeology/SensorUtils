@@ -39,15 +39,8 @@ install:
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda install -y -c conda-forge cmake armadillo
 
-before_script:
-  - ls -l . 
-  - ls -l build
-  - ls -l build/USGS-Astrogeology/SensorUtils
-  - rootdir=$HOME/build/${TRAVIS_REPO_SLUG}
-  - echo rootdir ${rootdir}
-  - $HOME/cpplint.py --root=${rootdir}/include/sensorutils ${rootdir}/include/sensorutils/* ${rootdir}/src/*
-
 script:
+  - $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/* 2> $HOME/lint.txt
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON ..
@@ -65,4 +58,4 @@ after_success:
 
 after_failure:
   - echo -e "TEST (REMOVE THIS LINE)";
-  - cat $HOME/linter.out;
+  - cat $HOME/lint.txt
