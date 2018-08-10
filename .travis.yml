@@ -39,8 +39,13 @@ install:
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda install -y -c conda-forge cmake armadillo
 
+before_script
+  - lintfilters=""
+  - lintroot=build/${TRAVIS_REPO_SLUG}/include/sensorutils
+  - python2 $HOME/cpplint.py --root=$lintroot include/sensorutils/* src/* 2> $HOME/lint.txt
+
 script:
-  - $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/* 2> $HOME/lint.txt
+  #- $HOME/cpplint.py --root=include/sensorutils include/sensorutils/* src/* 2> $HOME/lint.txt
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON ..
