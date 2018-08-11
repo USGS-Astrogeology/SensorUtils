@@ -40,10 +40,12 @@ install:
   - conda install -y -c conda-forge cmake armadillo
 
 before_script:
+  - clone=build/${TRAVIS_REPO_SLUG}
   - lintfilters=""
   - lintroot=build/${TRAVIS_REPO_SLUG}/include/sensorutils
+  - lintfiles="${clone}/include/sensorutils/* ${clone}/src/*"
   - which python2
-  - python2 $HOME/cpplint.py --root=${lintroot} include/sensorutils/* src/* 2> $HOME/lint.txt
+  - python2 $HOME/cpplint.py --root=${lintroot} ${lintfiles} 2> $HOME/lint.txt
 
 script:
   - mkdir build
