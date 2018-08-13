@@ -3,15 +3,12 @@
 
 #include <string>
 
-#include "CartesianPoint.h"
-#include "ImagePoint.h"
-
-using namespace std;
+#include "sensorcore.h"
 
 class Sensor {
 
   public:
-    Sensor(const string &metaData, const string &sensorName);
+    Sensor(const std::string &metaData, const std::string &sensorName);
 
     double declination(const CartesianVector &);
     double emissionAngle(const CartesianPoint &groundPoint);
