@@ -1,7 +1,5 @@
 #include <gtest/gtest.h>
 
-#include "CartesianPoint.h"
-#include "ImagePoint.h"
 #include "Sensor.h"
 
 TEST(declination, placeHodor) {
