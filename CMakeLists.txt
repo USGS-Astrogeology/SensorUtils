@@ -11,6 +11,8 @@ set(COVERAGE OFF CACHE BOOL "Coverage")
 
 add_library(sensorutils SHARED
             src/SensorUtils.cpp
+            src/sensorcore/CartesianPoint.cpp
+            src/sensorcore/ImagePoint.cpp
             src/sensorcore/Sensor.cpp
             src/sensormath/SensorMath.cpp
             src/sensormodel/SensorModel.cpp

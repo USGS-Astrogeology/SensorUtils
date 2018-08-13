@@ -3,22 +3,15 @@
 
 #include <string>
 
-struct CartesianPoint {
-  double x, y, z;
-};
+#include "CartesianPoint.h"
+#include "ImagePoint.h"
 
-struct CartesianVector {
-  double x, y, z;
-};
-
-struct ImagePoint {
-  double sample, line, band;
-};
+using namespace std;
 
 class Sensor {
 
   public:
-    Sensor(const std::string &metaData, const std::string &sensorName);
+    Sensor(const string &metaData, const string &sensorName);
 
     double declination(const CartesianVector &);
     double emissionAngle(const CartesianPoint &groundPoint);

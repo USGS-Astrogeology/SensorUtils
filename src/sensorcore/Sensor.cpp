@@ -2,7 +2,10 @@
 
 #include <string>
 
-Sensor::Sensor(const std::string &metaData, const std::string &sensorName) {
+#include "CartesianPoint.h"
+#include "ImagePoint.h"
+
+Sensor::Sensor(const string &metaData, const string &sensorName) {
 
 }
 
