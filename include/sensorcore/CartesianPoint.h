@@ -5,16 +5,17 @@
 
 class CartesianPoint {
 
-  CartesianPoint();
-  CartesianPoint(double x, double y, double z);
-  CartesianPoint(const std::vector<double> &xyz);
-
-  typedef CartesianPoint CartesianVector;
+  public:
+    CartesianPoint();
+    CartesianPoint(double x, double y, double z);
+    CartesianPoint(const std::vector<double> &xyz);
 
   private:
     double m_x;
     double m_y;
     double m_z;
 };
+
+typedef CartesianPoint CartesianVector;
 
 #endif

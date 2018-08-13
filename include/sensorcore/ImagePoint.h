@@ -5,9 +5,10 @@
 
 class ImagePoint {
 
-  ImagePoint();
-  ImagePoint(double sample, double line, double band);
-  ImagePoint(const std::vector<double> &point);
+  public:
+    ImagePoint();
+    ImagePoint(double sample, double line, double band);
+    ImagePoint(const std::vector<double> &point);
 
   private:
     double m_sample;
