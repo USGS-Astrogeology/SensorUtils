@@ -1,15 +1,19 @@
 #include "Sensor.h"
 
 #include <string>
+#include <vector>
 
 #include "sensorcore.h"
+#include "SensorMath.h"
+#include "SensorUtils.h"
 
 Sensor::Sensor(const std::string &metaData, const std::string &sensorName) {
 
 }
 
 double Sensor::declination(const CartesianVector &vector) {
-  return 0.0;
+  std::vector<double> cartesianVector{vector.x, vector.y, vector.z};
+  return computeRADec(cartesianVector)[1];
 }
 
 double Sensor::emissionAngle(const CartesianPoint &groundPoint) {
@@ -29,5 +33,6 @@ double Sensor::phaseAngle(const ImagePoint &imagePoint) {
 }
 
 double Sensor::rightAscension(const CartesianVector &vector) {
-  return 0.0;
+  std::vector<double> cartesianVector{vector.x, vector.y, vector.z};
+  return computeRADec(cartesianVector)[0];
 }
