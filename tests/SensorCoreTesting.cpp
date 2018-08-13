@@ -23,5 +23,5 @@ TEST(phaseAngle, placeHodor) {
 
 TEST(rightAscension, placeHodor) {
   Sensor sensor("test", "test");
-  EXPECT_DOUBLE_EQ(0.0, sensor.declination(CartesianVector()));
+  EXPECT_DOUBLE_EQ(0.0, sensor.rightAscension(CartesianVector()));
 }
