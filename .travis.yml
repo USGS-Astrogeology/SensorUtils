@@ -22,6 +22,9 @@ before_install:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       pip install --user cpp-coveralls;
+      cd $HOME;
+      wget https://raw.githubusercontent.com/google/styleguide/gh-pages/cpplint/cpplint.py;
+      chmod +x cpplint.py;
     fi
 
 install:
@@ -35,13 +38,18 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda install -y -c conda-forge cmake armadillo
-  
+
 script:
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON ..
   - cmake --build .
   - ctest
+  - clone=build/${TRAVIS_REPO_SLUG}
+  - lintfilters=""
+  - lintroot=build/${TRAVIS_REPO_SLUG}/include/sensorutils
+  - lintfiles="${clone}/include/sensorutils/* ${clone}/src/*"
+  - python2 $HOME/cpplint.py --root=${lintroot} ${lintfiles} 2> $HOME/lint.txt
 
 after_success:
   - |
@@ -54,3 +62,6 @@ after_success:
   - conda config --add channels conda-forge
   - conda build --token $CONDA_UPLOAD_TOKEN recipes -q
 
+after_failure:
+  - echo -e "TEST (REMOVE THIS LINE)";
+  - cat $HOME/lint.txt
