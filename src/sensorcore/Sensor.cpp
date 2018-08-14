@@ -12,11 +12,11 @@ Sensor::Sensor(const std::string &metaData, const std::string &sensorName) {
 
 
 /**
- * Computes declination on the celestial sphere for a given look direction.
+ * Computes declination (in radians) on the celestial sphere for a given look direction.
  *
  * @param vector The look direction to project onto the celestial sphere.
  *
- * @return Returns the declination.
+ * @return Returns the declination in radians.
  */
 double Sensor::declination(const CartesianVector &vector) {
   std::vector<double> cartesianVector{vector.x, vector.y, vector.z};
@@ -46,11 +46,11 @@ double Sensor::phaseAngle(const ImagePoint &imagePoint) {
 
 
 /**
- * Computes right ascension on the celestial sphere for a given look direction.
+ * Computes right ascension (in radians) on the celestial sphere for a given look direction.
  *
  * @param vector The look direction to project onto the celestial sphere.
  *
- * @return Returns the right ascension.
+ * @return Returns the right ascension in radians.
  */
 double Sensor::rightAscension(const CartesianVector &vector) {
   std::vector<double> cartesianVector{vector.x, vector.y, vector.z};
