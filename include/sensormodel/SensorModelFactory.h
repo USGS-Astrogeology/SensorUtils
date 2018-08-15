@@ -1,19 +1,43 @@
 #ifndef SensorModelFactory_h
 #define SensorModelFactory_h
 
-#include <memory>
-#include <string>
+
 
 #include "SensorModel.h"
 
+#include <memory>
+
+using namespace std;
+
 class SensorModelFactory {
 
-  public:
-    static std::unique_ptr<SensorModel> create(const std::string &sensorModelName);
 
-  private:
-    SensorModelFactory();
-    ~SensorModelFactory();
+/**
+*
+*  @brief Factory cleass used to create a CSM object
+*  @author 2018-08-13 Tyler Wilson
+*  @internal
+*    @history
+*
+*
+*
+*/
+
+public:
+
+  static unique_ptr<SensorModel> create(const string &pathToPlugin,
+                                        const string & pluginName);
+
+private:
+
+  SensorModelFactory() {};
+
+  //! Destroys the CameraFactory object
+  ~SensorModelFactory() {};
+
+
+
 };
 
 #endif
+
