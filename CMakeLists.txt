@@ -17,8 +17,11 @@ set(CSMAPI_INCLUDE_DIR,../CSM-CameraModel/csm/include/csm/)
 set(CSMAPI_LIB_DIR,../CSM-CameraModel/csm/)
 
 
-find_library(CAMERA_MODEL_LIBRARY usgscsm PATHS ${CAMERA_MODEL_LIB_DIR})
-find_library(CSMAPI_LIBRARY csmapi PATHS ${CSMAPI_LIB_DIR})
+find_library(CAMERA_MODEL_LIBRARY usgscsm PATHS ../CSM-CameraModel/)
+find_library(CSMAPI_LIBRARY csmapi PATH ../csm/)
+
+message(${CAMERA_MODEL_LIBRARY})
+message(${CSMAPI_LIBRARY})
 
 add_library(sensorutils SHARED
             src/SensorUtils.cpp
@@ -59,10 +62,12 @@ target_include_directories(sensorutils
                            ${ARMADILLO_INCLUDE_DIRS}
 )
 
+message(${ARMADILLO_LIBRARIES})
 
 target_link_libraries(sensorutils PUBLIC
                       gtest ${CMAKE_THREAD_LIBS_INIT}
-                      ${ARMADILLO_LIBRARIES})
+                      ${ARMADILLO_LIBRARIES} ${CAMERA_MODEL_LIBRARY}
+                       ${CSMAPI_LIBRARY})
 
 install(TARGETS sensorutils
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
