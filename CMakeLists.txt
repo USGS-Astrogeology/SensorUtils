@@ -31,12 +31,10 @@ find_package(Threads)
 # This is the linear algebra library we are using
 find_package(Armadillo REQUIRED)
 
-set(SENSORUTILS_INCLUDE_DIRS  "${CMAKE_CURRENT_SOURCE_DIR}/include/sensorcore" 
-                              "${CMAKE_CURRENT_SOURCE_DIR}/include/sensorutils"
+set(SENSORUTILS_INCLUDE_DIRS  "${CMAKE_CURRENT_SOURCE_DIR}/include/sensorcore"
                               "${CMAKE_CURRENT_SOURCE_DIR}/include/sensormath"
                               "${CMAKE_CURRENT_SOURCE_DIR}/include/sensormodel"
-                              "${CMAKE_CURRENT_SOURCE_DIR}/include/shapemodel"
-                              "${CMAKE_CURRENT_SOURCE_DIR}/include")
+                              "${CMAKE_CURRENT_SOURCE_DIR}/include/shapemodel")
 
 target_include_directories(sensorutils
                            PUBLIC
