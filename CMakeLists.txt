@@ -9,11 +9,23 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(COVERAGE OFF CACHE BOOL "Coverage")
 
+
+#add_subdirectory(CSM-CameraModel)
+set(CAMERA_MODEL_INCLUDE_DIR,../CSM-CameraModel/include/usgscsm/)
+set(CAMERA_MODEL_LIB_DIR,../CSM-CameraModel/)
+set(CSMAPI_INCLUDE_DIR,../CSM-CameraModel/csm/include/csm/)
+set(CSMAPI_LIB_DIR,../CSM-CameraModel/csm/)
+
+
+find_library(CAMERA_MODEL_LIBRARY usgscsm PATHS ${CAMERA_MODEL_LIB_DIR})
+find_library(CSMAPI_LIBRARY csmapi PATHS ${CSMAPI_LIB_DIR})
+
 add_library(sensorutils SHARED
             src/SensorUtils.cpp
             src/sensorcore/Sensor.cpp
-            src/sensormath/SensorMath.cpp            
-	          src/shapemodel/ShapeModel.cpp)
+            src/sensormath/SensorMath.cpp
+	          src/shapemodel/ShapeModel.cpp
+            src/sensormodel/SensorModelFactory.cpp)
 
 if(COVERAGE)
     target_compile_options(sensorutils PRIVATE --coverage -O0)
@@ -34,6 +46,10 @@ find_package(Armadillo REQUIRED)
 
 target_include_directories(sensorutils
                            PUBLIC
+                           ../CSM-CameraModel/csm/include/csm/
+                           ../CSM-CameraModel/csm/include/
+                           ../CSM-CameraModel/include/usgscsm/
+                           ../CSM-CameraModel/include/
                            include/sensorutils/
                            include/sensorcore/
                            include/sensormath/
