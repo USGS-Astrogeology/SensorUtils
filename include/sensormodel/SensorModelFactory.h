@@ -1,7 +1,7 @@
 #ifndef SensorModelFactory_h
 #define SensorModelFactory_h
 
-#include "Plugin.h"
+
 #include "SensorModel.h"
 
 #include <memory>
@@ -24,8 +24,7 @@ class SensorModelFactory {
 
 public:
 
-  static unique_ptr<SensorModel> create(const string &pathToPlugin,
-                                        const string & pluginName);
+  static unique_ptr<SensorModel> create(const string & pluginName);
 
 private:
 

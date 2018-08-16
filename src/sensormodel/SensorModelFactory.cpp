@@ -1,5 +1,5 @@
-#include "csm.h"
-#include "Plugin.h"
+
+#include "IsisSensorModel.h"
 #include "UsgsAstroFramePlugin.h"
 #include "UsgsAstroFrameSensorModel.h"
 #include "UsgsAstroLsPlugin.h"
@@ -10,14 +10,9 @@
 
 
 
-#include <Isd.h>
-#include <Model.h>
+
 #include <Plugin.h>
-#include <RasterGM.h>
-#include <Warning.h>
 
-
-#include <dlfcn.h>
 
 #include <iostream>
 #include <list>
@@ -28,37 +23,32 @@ using namespace csm;
 
 
 
- unique_ptr<SensorModel>  SensorModelFactory::create(const string &pathToPlugin,
-                                                     const string& pluginName ) {
-   string plugin = pathToPlugin +"/"+pluginName+".so";
-   void *pluginLib = dlopen(plugin.c_str(), RTLD_LAZY);
-   if (pluginLib == NULL) {
-     cerr << "There was an issue loading the plugin." << endl;
-     cerr << "\t" << dlerror() << endl;
-     return unique_ptr<SensorModel>(nullptr);
-   }
-   else {
+ unique_ptr<SensorModel>  SensorModelFactory::create(const string& pluginName ) {
 
-     const Plugin *sensorPlugin = Plugin::findPlugin(pluginName);
-     if (sensorPlugin == NULL) {
-       cerr << "\nCould not find SENSOR_PLUGIN\n" << endl;
+     Plugin * sensorPlugin;
+
+     const Plugin * plug = Plugin::findPlugin(pluginName);
+     if (plug == NULL) {
+       cerr << "\nCould not find: " << pluginName << endl << endl;
        return unique_ptr<SensorModel>(nullptr);
      }
+     if (pluginName == "UsgsAstroFramePluginCSM") {
 
+       sensorPlugin = dynamic_cast<UsgsAstroFramePlugin *>(sensorPlugin);
+     }
 
+     if (pluginName == "USGS_ASTRO_LINE_SCANNER_PLUGIN") {
+      sensorPlugin = dynamic_cast<UsgsAstroLsPlugin *>(sensorPlugin);
+     }
 
+     string modelName = sensorPlugin->getModelName(0);
 
-
-
-
-
-
-   }
-
-
+     if(modelName == "IsisSensorModel") {
+      IsisSensorModel *isisCameraModel = new IsisSensorModel();
+       return unique_ptr<IsisSensorModel>(isisCameraModel);
+     }
 
      return unique_ptr<SensorModel>(nullptr);
-
 
  }
 
