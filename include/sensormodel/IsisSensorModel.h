@@ -6,8 +6,7 @@
   class IsisSensorModel : public SensorModel {
     public:
 
-
-    CartesianPoint imageToGround(const ImagePoint &){
+    IsisSensorModel(const std::string sensorName,const std::string &metaData){}
 
       return CaresianPoint();
     }
