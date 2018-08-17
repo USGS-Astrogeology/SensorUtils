@@ -11,8 +11,8 @@
 #include "SensorModelFactory.h"
 
 Sensor::Sensor(const std::string &metaData, const std::string &sensorName) {
-  m_shapeModel = ShapeModelFactory::create("test");
   m_sensorModel = SensorModelFactory::create("test"); 
+  m_shapeModel = ShapeModelFactory::create("test");
 }
 
 
@@ -30,13 +30,50 @@ double Sensor::declination(const CartesianVector &vector) {
 }
 
 
+/**
+ * Computes the emission angle (in radians) from specified ground point.
+ *
+ * Emission angle is the angle between an observer (body-fixed position) and surface normal vector
+ * of the intersection on the surface of a target.
+ *
+ * @param groundPoint The ground point on a target to compute the surface normal used to compute
+ *                    the emission angle.
+ *
+ * @return double Returns the emission angle in radians.
+ */
 double Sensor::emissionAngle(const CartesianPoint &groundPoint) {
-  return 0.0;
+  CartesianPoint input = groundPoint; // The SensorModel interface defines non-const ref params.
+  // THIS IS A WORKAROUND, THE SENSORMODEL INTERFACE DEFINES getSensorPostion(ImagePoint).
+  ImagePoint imagePoint = m_sensorModel->groundToImage(input);
+  CartesianPoint sensorPosition = m_sensorModel->getSensorPosition(imagePoint);
+  CartesianVector lookVector = sensormath::subtract(sensorPosition, groundPoint);
+  CartesianVector unitLookVector = sensormath::normalize(lookVector);
+  CartesianVector surfacePointNormal = m_shapeModel->surfaceNormal(groundPoint);
+  double cosTheta = sensormath::dot(unitLookVector, surfacePointNormal);
+  if (cosTheta >= 1.0) {
+    return 0.0;
+  }
+  if (cosTheta <= -1.0) {
+    return M_PI;
+  }
+  return acos(cosTheta);
 }
 
 
+/**
+ * Computes the emissionAngle (in radians) from the specified image point.
+ *
+ * First computes the intersection with a target and then computes the angle between the surface
+ * normal of the intersection and the observer's position (in body-fixed).
+ *
+ * @param imagePoint The ImagePoint to try to intersect the target with to compute emission angle.
+ *
+ * @return double Returns the emission angle in radians.
+ */
 double Sensor::emissionAngle(const ImagePoint &imagePoint) {
-  return 0.0;
+  ImagePoint input = imagePoint; // The SensorModel interface defines non-const ref params.
+  CartesianPoint groundPoint = m_sensorModel->imageToGround(input);
+  return emissionAngle(groundPoint);
 }
 
 
@@ -142,3 +179,4 @@ double Sensor::rightAscension(const CartesianVector &vector) {
   }
   return radiusRaDec[2];
 }
+
