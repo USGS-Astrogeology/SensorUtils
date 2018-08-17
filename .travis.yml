@@ -9,9 +9,11 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-6
+            - gcc-7
+            - g++-7
+
       env:
-        - MATRIX_EVAL="CXX=g++-6 && CC=gcc-6"
+        - MATRIX_EVAL="CXX=g++-7 && CC=gcc-7"
     - os: osx
       osx_image: xcode9.4
       env: 
@@ -38,6 +40,9 @@ install:
   - conda install -y -c usgs-astrogeology libcsm usgscam
   
 script:
+  - export CC=gcc-7
+  - export CXX=g++-7
+  - gcc --version
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON ..
