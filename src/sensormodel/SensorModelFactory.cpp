@@ -1,5 +1,6 @@
 
 #include "IsisSensorModel.h"
+#include "CSMSensorModel.h"
 #include "UsgsAstroFramePlugin.h"
 #include "UsgsAstroFrameSensorModel.h"
 #include "UsgsAstroLsPlugin.h"
@@ -18,12 +19,13 @@
 #include <list>
 #include <memory>
 
-using namespace std;
+
 using namespace csm;
 
 
 
- unique_ptr<SensorModel>  SensorModelFactory::create(const string& pluginName ) {
+ unique_ptr<SensorModel>  SensorModelFactory::create(const std::string& pluginName,
+                                                     const std::string &metaData ) {
 
      Plugin * sensorPlugin;
 
@@ -43,9 +45,14 @@ using namespace csm;
 
      string modelName = sensorPlugin->getModelName(0);
 
-     if(modelName == "IsisSensorModel") {
-      IsisSensorModel *isisCameraModel = new IsisSensorModel();
-       return unique_ptr<IsisSensorModel>(isisCameraModel);
+     if(modelName == "USGS_ASTRO_FRAME_SENSOR_MODEL" || modelName == "USGS_ASTRO_LINE_SCANNER_SENSOR_MODEL") {
+      CSMSensorModel *csmModel = new CSMSensorModel(modelName,metaData);
+       return unique_ptr<CSMSensorModel>(csmModel);
+     }
+     else {
+
+       //ISIS camera model :  make a call to the CameraFactory class
+
      }
 
      return unique_ptr<SensorModel>(nullptr);

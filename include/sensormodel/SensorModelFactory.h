@@ -24,7 +24,8 @@ class SensorModelFactory {
 
 public:
 
-  static unique_ptr<SensorModel> create(const string & pluginName);
+  static unique_ptr<SensorModel> create(const std::string & sensorName,
+                                        const std::string & metaData);
 
 private:
 

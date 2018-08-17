@@ -1,27 +1,24 @@
-#ifndef IsisSensorModel_h
-#define IsisSensorModel_h
+#ifndef CSMSensorModel_h
+#define CSMSensorModel_h
 
 #include "SensorModel.h"
 #include "SensorMath.h"
 
-  class IsisSensorModel : public SensorModel {
+  class CSMSensorModel : public SensorModel {
     public:
 
 
-    IsisSensorModel(const std::string sensorName,const std::string &metaData){}
+    CSMSensorModel(const std::string sensorName,const std::string &metaData){}
 
     CartesianPoint imageToGround(const ImagePoint &) override {
-
       return CartesianPoint();
     }
 
     ImagePoint groundToImage(const CartesianPoint &) override{
-
       return ImagePoint();
     }
 
     CartesianVector groundToLook(const CartesianPoint & ) override{
-
       return CartesianPoint();
     };
 
@@ -29,10 +26,6 @@
 
       return 0;
     }
-
-
-
-
 
   };
 
