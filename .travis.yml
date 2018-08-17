@@ -42,6 +42,7 @@ install:
 script:
   - export CC=gcc-7
   - export CXX=g++-7
+  - ls /usr/local/bin/g*
   - gcc --version
   - mkdir build
   - cd build
