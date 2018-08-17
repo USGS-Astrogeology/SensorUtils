@@ -35,6 +35,7 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda install -y -c conda-forge cmake armadillo
+  - conda install -y -c usgs-astrogeology csm usgscam
   
 script:
   - mkdir build
