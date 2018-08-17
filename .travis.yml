@@ -40,10 +40,6 @@ install:
   - conda install -y -c usgs-astrogeology libcsm usgscam
   
 script:
-  - export CC=gcc-7
-  - export CXX=g++-7
-  - ls /usr/bin/g*
-  - gcc --version
   - mkdir build
   - cd build
   - cmake -DCOVERAGE=ON ..
