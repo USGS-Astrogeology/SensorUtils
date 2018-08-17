@@ -46,8 +46,8 @@ unique_ptr<SensorModel>  SensorModelFactory::create(const std::string& pluginNam
      string modelName = sensorPlugin->getModelName(0);
 
      if(modelName == "USGS_ASTRO_FRAME_SENSOR_MODEL" || modelName == "USGS_ASTRO_LINE_SCANNER_SENSOR_MODEL") {
-      CSMSensorModel *csmModel = new CSMSensorModel(modelName,metaData);
-       return unique_ptr<CSMSensorModel>(csmModel);
+       SensorModel *csmModel = new CSMSensorModel(modelName,metaData);
+       return unique_ptr<SensorModel>(csmModel);
      }
      else {
 

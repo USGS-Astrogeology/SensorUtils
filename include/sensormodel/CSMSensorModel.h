@@ -28,6 +28,14 @@
       return 0;
     }
 
+    CartesianPoint getSensorPosition(const ImagePoint &){
+      return CartesianPoint();
+    }
+    
+    CartesianVector getIlluminationDirection (const CartesianPoint &) {
+      return CartesianVector();
+    }
+  
   };
 
 

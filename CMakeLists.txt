@@ -26,7 +26,6 @@ add_library(sensorutils SHARED
             src/shapemodel/BiAxialEllipsoid.cpp            
             src/shapemodel/ShapeModel.cpp
             src/shapemodel/ShapeModelFactory.cpp
-            src/sensormodel/CSMSensorModel.cpp
             src/sensormodel/SensorModelFactory.cpp)
 
 if(COVERAGE)
@@ -53,7 +52,7 @@ set(SENSORUTILS_INCLUDE_DIRS  "${CMAKE_CURRENT_SOURCE_DIR}/include/sensorcore"
 
 target_include_directories(sensorutils
                            PUBLIC
-                           ${SENSORUTILS_INCLUDEDIRS}
+                           ${SENSORUTILS_INCLUDE_DIRS}
                            ${ARMADILLO_INCLUDE_DIRS}
                            ${CSM_INCLUDE_DIR}
                            ${CAMERAMODEL_INCLUDE_DIR}

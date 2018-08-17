@@ -12,7 +12,7 @@
 
 Sensor::Sensor(const std::string &metaData, const std::string &sensorName) {
   m_shapeModel = ShapeModelFactory::create("test");
-  m_sensorModel = SensorModelFactory::create("test"); 
+  m_sensorModel = SensorModelFactory::create("test", "test"); 
 }
 
 

@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 TEST(CSMSensorModel, groundToLook) {
-  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create("test");
+  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create("test", "test");
 
   CartesianPoint groundPoint(0.0, 0.0, 0.0);
   CartesianVector lookVector = sensor->groundToLook(groundPoint); 
@@ -20,7 +20,7 @@ TEST(CSMSensorModel, groundToLook) {
 }
 
 TEST(CSMSensorModel, imageTime) {
-  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create("test");
+  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create("test", "test");
   ImagePoint imagePoint(0.0, 0.0, 0.0);
   double time = sensor->imageTime(imagePoint); 
 
