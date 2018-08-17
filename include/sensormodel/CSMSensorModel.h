@@ -12,15 +12,15 @@
     CSMSensorModel(const std::string sensorName,const std::string &metaData){}
 
     CartesianPoint imageToGround(const ImagePoint &) override {
-      return CartesianPoint();
+      return CartesianPoint(0,0,0);
     }
 
     ImagePoint groundToImage(const CartesianPoint &) override{
-      return ImagePoint();
+      return ImagePoint(0,0,0);
     }
 
     CartesianVector groundToLook(const CartesianPoint & ) override{
-      return CartesianPoint();
+      return CartesianVector(0,0,0);
     };
 
     double imageTime(const ImagePoint & ) override{
@@ -29,11 +29,11 @@
     }
 
     CartesianPoint getSensorPosition(const ImagePoint &){
-      return CartesianPoint();
+      return CartesianPoint(0,0,0);
     }
     
     CartesianVector getIlluminationDirection (const CartesianPoint &) {
-      return CartesianVector();
+      return CartesianVector(0,0,0);
     }
   
   };
