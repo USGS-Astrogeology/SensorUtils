@@ -18,12 +18,12 @@ class SensorModel {
 */
 public:
 
-  virtual CartesianPoint imageToGround(ImagePoint &) =0;
-  virtual ImagePoint groundToImage(CartesianPoint &) = 0;
-  virtual CartesianVector groundToLook(CartesianPoint & ) = 0;
-  virtual double imageTime(ImagePoint & )= 0;
-  virtual CartesianPoint getSensorPosition(ImagePoint &) = 0; 
-  virtual CartesianVector getIlluminationDirection (CartesianPoint &) = 0; 
+  virtual CartesianPoint imageToGround(const ImagePoint &) =0;
+  virtual ImagePoint groundToImage(const CartesianPoint &) = 0;
+  virtual CartesianVector groundToLook(const CartesianPoint & ) = 0;
+  virtual double imageTime(const ImagePoint & )= 0;
+  virtual CartesianPoint getSensorPosition(const ImagePoint &) = 0; 
+  virtual CartesianVector getIlluminationDirection (const CartesianPoint &) = 0; 
 };
 
 #endif
