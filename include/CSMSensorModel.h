@@ -3,7 +3,6 @@
 
 
 #include "SensorModel.h"
-#include "SensorMath.h"
 
   class CSMSensorModel : public SensorModel {
     public:

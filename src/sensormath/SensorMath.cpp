@@ -3,11 +3,17 @@
 #include <cfloat>
 #include <cmath>
 
+#include <armadillo>
+
 using namespace std;
 using namespace arma;
 
-namespace sensormath {
-
+namespace {
+  // Since the conversion funcs are internal only, I think they should be 
+  // 'private'. To do that, it looks like they do not belong in the header
+  // but should instead be declared here. I am discovering this because we
+  // do not want to have an armadillo dependency due to gtest.
+  
   // cartesian point -> arma::vec
   vec cartesianToVec(CartesianPoint point) {
     return vec {point.x, point.y, point.z}; 
@@ -31,6 +37,9 @@ namespace sensormath {
     return ImagePoint(vec[0], vec[1], vec[2]); 
   }
 
+}
+
+namespace sensormath {
 
   // Calculates the angle between two vectors
   double angle(CartesianVector ray1, CartesianVector ray2) {

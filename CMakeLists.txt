@@ -13,18 +13,10 @@ find_path(CSM_INCLUDE_DIR NAMES csm.h
                           PATH_SUFFIXES csm 
                           PATHS $ENV{CONDA_PREFIX}/include)
 
-find_path(CAMERAMODEL_INCLUDE_DIR NAMES UsgsAstroFramePlugin.h
-                                  PATH_SUFFIXES usgscsm 
-                                  PATHS $ENV{CONDA_PREFIX}/include)
-                                  
-find_library(CAMERAMODEL_LIBRARY NAMES usgscsm
-                                 PATHS $ENV{CONDA_PREFIX}/lib)
-
 add_library(sensorutils SHARED
             src/sensorcore/Sensor.cpp
             src/sensormath/SensorMath.cpp
             src/shapemodel/BiAxialEllipsoid.cpp            
-            src/shapemodel/ShapeModel.cpp
             src/shapemodel/ShapeModelFactory.cpp
             src/sensormodel/SensorModelFactory.cpp)
 
@@ -32,8 +24,6 @@ if(COVERAGE)
     target_compile_options(sensorutils PRIVATE --coverage -O0)
     target_link_libraries(sensorutils PRIVATE --coverage -O0)
 endif()
-
-
 
 set_target_properties(sensorutils PROPERTIES
     VERSION ${PROJECT_VERSION}
@@ -45,28 +35,28 @@ find_package(Threads)
 # This is the linear algebra library we are using
 find_package(Armadillo REQUIRED)
 
-set(SENSORUTILS_INCLUDE_DIRS  "${CMAKE_CURRENT_SOURCE_DIR}/include/sensorcore"
-                              "${CMAKE_CURRENT_SOURCE_DIR}/include/sensormath"
-                              "${CMAKE_CURRENT_SOURCE_DIR}/include/sensormodel"
-                              "${CMAKE_CURRENT_SOURCE_DIR}/include/shapemodel")
+set(SENSORUTILS_PUBLIC_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/api")
+set(SENSORUTILS_PRIVATE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 target_include_directories(sensorutils
                            PUBLIC
-                           ${SENSORUTILS_INCLUDE_DIRS}
+                           ${SENSORUTILS_PUBLIC_INCLUDE_DIRS}
+                           PRIVATE
+                           ${SENSORUTILS_PRIVATE_INCLUDE_DIRS}
                            ${ARMADILLO_INCLUDE_DIRS}
-                           ${CSM_INCLUDE_DIR}
-                           ${CAMERAMODEL_INCLUDE_DIR}
-)
+                           ${CSM_INCLUDE_DIR})
 
 
 target_link_libraries(sensorutils PUBLIC
-                      gtest ${CMAKE_THREAD_LIBS_INIT}
-                      ${ARMADILLO_LIBRARIES} ${CAMERAMODEL_LIBRARY})
+                      gtest 
+                      ${CMAKE_THREAD_LIBS_INIT}
+                      ${ARMADILLO_LIBRARIES})
 
 install(TARGETS sensorutils
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     
-install(DIRECTORY ${SENSORUTILS_INCLUDE_DIRS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/sensorutils)
+install(DIRECTORY ${SENSORUTILS_INCLUDE_DIRS}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/sensorutils)
 
 option (BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)

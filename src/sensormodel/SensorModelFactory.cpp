@@ -1,53 +1,39 @@
 
 #include "IsisSensorModel.h"
 #include "CSMSensorModel.h"
-#include "UsgsAstroFramePlugin.h"
-#include "UsgsAstroFrameSensorModel.h"
-#include "UsgsAstroLsPlugin.h"
-#include "UsgsAstroLsSensorModel.h"
 
 #include "SensorModelFactory.h"
-
-
-
-
 
 #include <Plugin.h>
 
 
 #include <iostream>
 #include <list>
-#include <memory>
 
 
-using namespace csm;
-
-
-
-unique_ptr<SensorModel>  SensorModelFactory::create(const std::string& pluginName,
+std::unique_ptr<SensorModel>  SensorModelFactory::create(const std::string& pluginName,
                                                     const std::string &metaData ) {
 
-     Plugin * sensorPlugin;
+     csm::Plugin * sensorPlugin;
 
-     const Plugin * plug = Plugin::findPlugin(pluginName);
+     const csm::Plugin * plug = csm::Plugin::findPlugin(pluginName);
      if (plug == NULL) {
-       cerr << "\nCould not find: " << pluginName << endl << endl;
-       return unique_ptr<SensorModel>(nullptr);
+       std::invalid_argument("Plugin name not found in loaded plugins.");
      }
      if (pluginName == "UsgsAstroFramePluginCSM") {
 
-       sensorPlugin = dynamic_cast<UsgsAstroFramePlugin *>(sensorPlugin);
+       sensorPlugin = dynamic_cast<csm::Plugin *>(sensorPlugin);
      }
 
      if (pluginName == "USGS_ASTRO_LINE_SCANNER_PLUGIN") {
-      sensorPlugin = dynamic_cast<UsgsAstroLsPlugin *>(sensorPlugin);
+      sensorPlugin = dynamic_cast<csm::Plugin *>(sensorPlugin);
      }
 
-     string modelName = sensorPlugin->getModelName(0);
+     std::string modelName = sensorPlugin->getModelName(0);
 
      if(modelName == "USGS_ASTRO_FRAME_SENSOR_MODEL" || modelName == "USGS_ASTRO_LINE_SCANNER_SENSOR_MODEL") {
        SensorModel *csmModel = new CSMSensorModel(modelName,metaData);
-       return unique_ptr<SensorModel>(csmModel);
+       return std::unique_ptr<SensorModel>(csmModel);
      }
      else {
 
@@ -55,7 +41,6 @@ unique_ptr<SensorModel>  SensorModelFactory::create(const std::string& pluginNam
 
      }
 
-     return unique_ptr<SensorModel>(nullptr);
+     return std::unique_ptr<SensorModel>(nullptr);
 
  }
-

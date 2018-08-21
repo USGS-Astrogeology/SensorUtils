@@ -1,10 +1,10 @@
 #include <memory>
 #include <string>
 
-#include "sensorcore.h"
-#include "SensorMath.h"
-#include "SensorModel.h"
-#include "SensorModelFactory.h"
+#include "../api/sensorcore.h"
+#include "../include/SensorMath.h"
+#include "../include/SensorModel.h"
+#include "../api/SensorModelFactory.h"
 
 #include <gtest/gtest.h>
 

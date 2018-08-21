@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "ShapeModel.h"
+class ShapeModel;
 
 class ShapeModelFactory {
 

@@ -1,7 +1,7 @@
 #ifndef IsisSensorModel_h
 #define IsisSensorModel_h
 
-#include "SensorMath.h"
+#include <string>
 #include "SensorModel.h"
 
   class IsisSensorModel : public SensorModel {
