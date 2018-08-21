@@ -6,14 +6,16 @@
 
 #include "sensorcore.h"
 
-#include "SensorModel.h"
-#include "ShapeModel.h"
+
+class SensorModel;
+class ShapeModel;
 
 class Sensor {
 
   public:
-    Sensor(const std::string &metaData, const std::string &sensorName);
-
+    Sensor(SensorModel *sensorModel,
+           ShapeModel *shapeModel);
+    ~Sensor();
     double declination(const CartesianVector &);
     double emissionAngle(const CartesianPoint &groundPoint);
     double emissionAngle(const ImagePoint &imagePoint);
@@ -24,8 +26,8 @@ class Sensor {
     CartesianPoint illuminatorPosition(ImagePoint imagePoint); 
 
   private:
-    std::unique_ptr<SensorModel> m_sensorModel;
-    std::unique_ptr<ShapeModel> m_shapeModel;
+    SensorModel *m_sensorModel;
+    ShapeModel *m_shapeModel;
 };
 
 #endif

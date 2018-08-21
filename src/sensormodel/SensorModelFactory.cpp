@@ -1,18 +1,46 @@
-#include "SensorModelFactory.h"
 
-#include <memory>
-#include <string>
-
-#include "SensorModel.h"
+#include "IsisSensorModel.h"
 #include "CSMSensorModel.h"
 
-/**
- * Creates a SensorModel based on the given shape model name.
- *
- * @param sensorModelName Name of the sensor model to create.
- *
- * @return std::unique_ptr<SensorModel> Returns a managed pointer of the created SensorModel.
- */
-std::unique_ptr<SensorModel> SensorModelFactory::create(const std::string &sensorModelName) {
-  return std::unique_ptr<SensorModel>(new CSMSensorModel); 
-}
+#include "SensorModelFactory.h"
+
+#include <Plugin.h>
+
+
+#include <iostream>
+#include <list>
+
+
+std::unique_ptr<SensorModel>  SensorModelFactory::create(const std::string& pluginName,
+                                                    const std::string &metaData ) {
+
+     csm::Plugin * sensorPlugin;
+
+     const csm::Plugin * plug = csm::Plugin::findPlugin(pluginName);
+     if (plug == NULL) {
+       std::invalid_argument("Plugin name not found in loaded plugins.");
+     }
+     if (pluginName == "UsgsAstroFramePluginCSM") {
+
+       sensorPlugin = dynamic_cast<csm::Plugin *>(sensorPlugin);
+     }
+
+     if (pluginName == "USGS_ASTRO_LINE_SCANNER_PLUGIN") {
+      sensorPlugin = dynamic_cast<csm::Plugin *>(sensorPlugin);
+     }
+
+     std::string modelName = sensorPlugin->getModelName(0);
+
+     if(modelName == "USGS_ASTRO_FRAME_SENSOR_MODEL" || modelName == "USGS_ASTRO_LINE_SCANNER_SENSOR_MODEL") {
+       SensorModel *csmModel = new CSMSensorModel(modelName,metaData);
+       return std::unique_ptr<SensorModel>(csmModel);
+     }
+     else {
+
+       //ISIS camera model :  make a call to the CameraFactory class
+
+     }
+
+     return std::unique_ptr<SensorModel>(nullptr);
+
+ }
