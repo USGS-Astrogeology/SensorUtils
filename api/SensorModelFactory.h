@@ -9,7 +9,7 @@
 class SensorModelFactory {
 
   public:
-    static std::unique_ptr<SensorModel> create(const std::string &sensorModelName);
+    static std::unique_ptr<SensorModel> create(const std::string &metadata);
 
   private:
     SensorModelFactory();

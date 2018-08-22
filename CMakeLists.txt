@@ -48,7 +48,8 @@ target_include_directories(sensorutils
                            PRIVATE
                            ${SENSORUTILS_PRIVATE_INCLUDE_DIRS}
                            ${ARMADILLO_INCLUDE_DIRS}
-                           ${CSM_INCLUDE_DIR})
+                           ${CSM_INCLUDE_DIR}
+                           ${CMAKE_CURRENT_SOURCE_DIR}/include/json)
 
 
 target_link_libraries(sensorutils PUBLIC
