@@ -17,7 +17,7 @@ class SensorModel {
 *
 */
 public:
-
+  ~SensorModel() { };
   virtual CartesianPoint imageToGround(ImagePoint &) =0;
   virtual ImagePoint groundToImage(CartesianPoint &) = 0;
   virtual CartesianVector groundToLook(CartesianPoint & ) = 0;
