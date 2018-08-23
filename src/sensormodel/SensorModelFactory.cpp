@@ -57,16 +57,17 @@ std::unique_ptr<SensorModel> SensorModelFactory::create(const std::string &metad
         modelname = pl->getModelName(j);
         if (pl->canModelBeConstructedFromISD(isd, modelname)){
           csm::Model *model = pl->constructModelFromISD(isd, modelname);
-          csm::RasterGM *rasterGMModel;
-          try{
-              rasterGMModel = dynamic_cast<csm::RasterGM *>(model);
-             }
-          catch (std::bad_cast &e){
-            std::cout << e.what() << '\n'; // This looks like poor form to me, but how to pass?
-          }
+          CSMSensorModel csmSensorModel = CSMSensorModel(model);
+          //csm::RasterGM *rasterGMModel;
+          //try{
+          //    rasterGMModel = dynamic_cast<csm::RasterGM *>(model);
+          //   }
+          //catch (std::bad_cast &e){
+          //  std::cout << e.what() << '\n'; // This looks like poor form to me, but how to pass?
+         // }
           //Now get our CSMSensorModel Wrapper instantiates
-          CSMSensorModel csmSensorModel = CSMSensorModel(*rasterGMModel);
-          return std::unique_ptr<SensorModel>(csmSensorModel);
+          //CSMSensorModel csmSensorModel = CSMSensorModel(*rasterGMModel);
+          //return std::unique_ptr<SensorModel>(csmSensorModel);
         }
       }
     }

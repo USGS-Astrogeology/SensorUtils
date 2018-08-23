@@ -2,15 +2,18 @@
 #define CSMSensorModel_h
 
 #include <vector>
+#include <typeinfo>
+#include <iostream>
+
 #include "sensorcore.h"
 #include "SensorModel.h"
 
-//This should be forward declared I think?
+#include <Model.h>
 #include <RasterGM.h>
 
 class CSMSensorModel : public SensorModel {
   public:
-    CSMSensorModel(csm::RasterGM *pointer); 
+    CSMSensorModel(csm::Model* model); 
     CartesianPoint imageToGround(ImagePoint &);
     ImagePoint groundToImage(CartesianPoint &);
     CartesianVector groundToLook(CartesianPoint & );
@@ -20,7 +23,7 @@ class CSMSensorModel : public SensorModel {
     CartesianVector getIlluminationDirection (CartesianPoint &);
 
   private:
-    csm::RasterGM m_model;
+    csm::RasterGM *m_model;
 };
 
 #endif
