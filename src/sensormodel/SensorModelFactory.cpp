@@ -51,23 +51,13 @@ std::unique_ptr<SensorModel> SensorModelFactory::create(const std::string &metad
     const csm::PluginList &plugins = sensorPlugin->getList();
     std::string modelname;
     // Now iterate through each plugin until we can construct a valid sensor model.
-    for (auto const& pl : plugins){
+    for (auto const& pl : plugins) {
       int nmodels = pl->getNumModels();
-      for (int j=0;j <nmodels;++j){
+      for (int j=0;j <nmodels;++j) {
         modelname = pl->getModelName(j);
-        if (pl->canModelBeConstructedFromISD(isd, modelname)){
+        if (pl->canModelBeConstructedFromISD(isd, modelname)) {
           csm::Model *model = pl->constructModelFromISD(isd, modelname);
           CSMSensorModel csmSensorModel = CSMSensorModel(model);
-          //csm::RasterGM *rasterGMModel;
-          //try{
-          //    rasterGMModel = dynamic_cast<csm::RasterGM *>(model);
-          //   }
-          //catch (std::bad_cast &e){
-          //  std::cout << e.what() << '\n'; // This looks like poor form to me, but how to pass?
-         // }
-          //Now get our CSMSensorModel Wrapper instantiates
-          //CSMSensorModel csmSensorModel = CSMSensorModel(*rasterGMModel);
-          //return std::unique_ptr<SensorModel>(csmSensorModel);
         }
       }
     }

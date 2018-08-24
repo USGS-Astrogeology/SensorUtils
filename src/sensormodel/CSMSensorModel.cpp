@@ -2,6 +2,7 @@
 
 #include "RasterGM.h"
 #include "Model.h"
+#include "csm.h"
 #include "sensorcore.h"
 #include "SensorMath.h"
 
@@ -24,10 +25,11 @@ CSMSensorModel::CSMSensorModel(csm::Model *model){
 };
 
 CartesianPoint CSMSensorModel::imageToGround(ImagePoint &imagePoint){
-  // CSM needs to also have an elev above the sphere.
-  // Need to convert the ImagePoint into an ImageCoord that CSM is expecting
-  //return m_model->imageToGround(imagePoint, 0.0);
-  return CartesianPoint{0,0,0};
+  csm::ImageCoord imageCoord = csm::ImageCoord(imagePoint.line, imagePoint.sample);
+  //Passing band is incorret, need height.
+  csm::EcefCoord ground = m_model->imageToGround(imageCoord, imagePoint.band); 
+  CartesianPoint cground = CartesianPoint(ground.x, ground.y, ground.z);
+  return cground;
   }
 
 ImagePoint CSMSensorModel::groundToImage(CartesianPoint &groundPoint){
@@ -39,7 +41,8 @@ CartesianVector CSMSensorModel::groundToLook(CartesianPoint &groundPoint){
   }
 
 double CSMSensorModel::imageTime(ImagePoint &imagePoint){
-  return 0.0;
+  csm::ImageCoord imageCoord = csm::ImageCoord(imagePoint.line, imagePoint.sample);
+  return m_model->getImageTime(imageCoord);
   }
 
 CartesianPoint CSMSensorModel::getSensorPosition(ImagePoint &imagePoint){

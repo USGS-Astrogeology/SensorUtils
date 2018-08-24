@@ -1,5 +1,6 @@
 #include <memory>
 #include <string>
+#include <fstream>
 
 #include "sensorcore.h"
 #include "SensorMath.h"
@@ -8,8 +9,12 @@
 
 #include <gtest/gtest.h>
 
+
 TEST(CSMSensorModel, groundToLook) {
-  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create("test");
+  std::ifstream infile("simpleFramerISD.json");
+  std::string content( (std::istreambuf_iterator<char>(infile) ),
+                       (std::istreambuf_iterator<char>()    ) );
+  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create(content);
 
   CartesianPoint groundPoint(0.0, 0.0, 0.0);
   CartesianVector lookVector = sensor->groundToLook(groundPoint); 
@@ -20,7 +25,11 @@ TEST(CSMSensorModel, groundToLook) {
 }
 
 TEST(CSMSensorModel, imageTime) {
-  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create("test");
+  std::ifstream infile("simpleFramerISD.json");
+  std::string content( (std::istreambuf_iterator<char>(infile) ),
+                       (std::istreambuf_iterator<char>()    ) );
+
+  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create(content);
   ImagePoint imagePoint(0.0, 0.0, 0.0);
   double time = sensor->imageTime(imagePoint); 
 

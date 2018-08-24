@@ -16,6 +16,7 @@ find_package(Armadillo REQUIRED)
 find_path(CSM_INCLUDE_DIR NAMES csm.h 
                           PATH_SUFFIXES csm 
                           PATHS $ENV{CONDA_PREFIX}/include)
+find_library(CSM_LIBRARY csmapi PATHS $ENV{CONDA_PREFIX}/lib)
 
 add_library(sensorutils SHARED
             src/sensorcore/Sensor.cpp
@@ -54,7 +55,8 @@ target_include_directories(sensorutils
 
 target_link_libraries(sensorutils PUBLIC
                       gtest ${CMAKE_THREAD_LIBS_INIT}
-                      ${ARMADILLO_LIBRARIES})
+                      ${ARMADILLO_LIBRARIES}
+                      ${CSM_LIBRARY})
 
 install(TARGETS sensorutils
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
