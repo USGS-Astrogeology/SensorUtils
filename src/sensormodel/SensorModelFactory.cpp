@@ -24,9 +24,10 @@
 std::unique_ptr<SensorModel> SensorModelFactory::create(const std::string &imagePath){
     std::string fileName = "data/simpleFramerISD.json";
 
-    // function declarations for drivers can be factored out from here, but does
-    // there exist a need to be expose these functions outside of
-    // SensorModelFactory::create?
+    // function declarations for drivers can be factored out from here, either as
+    // closures or as big boy functions, but does there exist a need to be expose
+    // these functions outside of SensorModelFactory::create And would closures
+    // make it too hard to read for developers not familiar with C++ lambdas?
     std::list<std::function<SensorModel*(const std::string&)>> drivers;
     std::cout << "push functions" << std::endl;
     std::cout << imagePath << std::endl;
@@ -53,7 +54,9 @@ std::unique_ptr<SensorModel> SensorModelFactory::create(const std::string &image
           } // end if
         } // end for each model
       } // end for each plugin
-      throw "Image isn't supported for reasons"; 
+
+      // Obviously, could use a more useful error
+      throw "No Valid CSM Sensor Model Available";
     });
 
     // Load ISIS Sensor Models
