@@ -29,25 +29,19 @@ std::unique_ptr<SensorModel> SensorModelFactory::create(const std::string &image
     // these functions outside of SensorModelFactory::create And would closures
     // make it too hard to read for developers not familiar with C++ lambdas?
     std::list<std::function<SensorModel*(const std::string&)>> drivers;
-    std::cout << "push functions" << std::endl;
-    std::cout << imagePath << std::endl;
 
     // Load CSM Sensor Models
     drivers.push_back([](const std::string& path) {
       // Grab the plugin object that has all plugins
       csm::Plugin * sensorPlugin;
-      std::cout << path << std::endl;
       const csm::PluginList &plugins = sensorPlugin->getList();
       csm::Isd isd(path);
-      std::cout << plugins.size() << std::endl;
 
       // Now iterate through each plugin until we can construct a valid sensor model.
       for (auto const& pl : plugins) {
         int nmodels = pl->getNumModels();
-        std::cout << nmodels << std::endl;
         for (int j=0;j <nmodels;++j) {
           std::string modelname = pl->getModelName(j);
-          std::cout << modelname << std::endl;
           if (pl->canModelBeConstructedFromISD(isd, modelname)) {
             csm::Model *model = pl->constructModelFromISD(isd, modelname);
             return new CSMSensorModel(model);
