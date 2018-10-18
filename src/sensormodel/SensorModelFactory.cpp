@@ -33,22 +33,19 @@ std::unique_ptr<SensorModel> SensorModelFactory::create(const std::string &image
     // Load CSM Sensor Models
     drivers.push_back([](const std::string& path) {
       // Grab the plugin object that has all plugins
-      csm::Plugin * sensorPlugin;
-      const csm::PluginList &plugins = sensorPlugin->getList();
+      const csm::PluginList &plugins = csm::Plugin::getList();
       csm::Isd isd(path);
 
       // Now iterate through each plugin until we can construct a valid sensor model.
       for (auto const& pl : plugins) {
-        int nmodels = pl->getNumModels();
-        for (int j=0;j <nmodels;++j) {
-          std::string modelname = pl->getModelName(j);
-          if (pl->canModelBeConstructedFromISD(isd, modelname)) {
-            csm::Model *model = pl->constructModelFromISD(isd, modelname);
-            return new CSMSensorModel(model);
-          } // end if
-        } // end for each model
-      } // end for each plugin
-
+        for (int j=0;j <pl->getNumModels();++j) {
+          std::string modelName = pl->getModelName(j)
+          if (pl->canModelBeConstructedFromISD(isd, modelName)) {
+            return new CSMSensorModel(pl->constructModelFromISD(isd, modelName));
+          }
+        }
+      }
+      
       // Obviously, could use a more useful error, maybe append the CSM
       // warning list?
       throw "No Valid CSM Sensor Model Available";
