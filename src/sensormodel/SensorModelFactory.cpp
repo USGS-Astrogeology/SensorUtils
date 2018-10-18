@@ -55,7 +55,8 @@ std::unique_ptr<SensorModel> SensorModelFactory::create(const std::string &image
         } // end for each model
       } // end for each plugin
 
-      // Obviously, could use a more useful error
+      // Obviously, could use a more useful error, maybe append the CSM
+      // warning list?
       throw "No Valid CSM Sensor Model Available";
     });
 
@@ -72,10 +73,7 @@ std::unique_ptr<SensorModel> SensorModelFactory::create(const std::string &image
     // Try to run them all
     for (auto const& driver : drivers) {
        try {
-         std::cout << "Attempting driver" << std::endl;
          model.reset(driver(imagePath));
-         std::cout << "Success" << std::endl;
-
          return model;
        }
        catch(...) {
