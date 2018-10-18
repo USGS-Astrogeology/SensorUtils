@@ -19,8 +19,8 @@ TEST(declination, AlphaCentauri) {
 
 TEST(emissionAngle, placeHodor) {
   Sensor sensor("test", "test");
-  EXPECT_DOUBLE_EQ(0.0, sensor.emissionAngle(CartesianPoint()));
-  EXPECT_DOUBLE_EQ(0.0, sensor.emissionAngle(ImagePoint()));
+  EXPECT_DOUBLE_EQ(M_PI/2, sensor.emissionAngle(CartesianPoint()));
+  EXPECT_DOUBLE_EQ(M_PI/2, sensor.emissionAngle(ImagePoint()));
 }
 
 TEST(phaseAngle, placeHodor) {
@@ -39,3 +39,4 @@ TEST(rightAscension, AlphaCentauri) {
   double rightAscension = sensor.rightAscension(coords);
   EXPECT_NEAR(219.90205833, rad2deg * rightAscension, 1e-4);
 }
+
