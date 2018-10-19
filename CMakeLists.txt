@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(sensorutils VERSION 0.1.1 DESCRIPTION "SensorUtils library")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(cmake/gtest.cmake)
 include(GNUInstallDirs)
