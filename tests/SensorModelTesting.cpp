@@ -9,10 +9,8 @@
 
 #include <gtest/gtest.h>
 
-
 TEST(CSMSensorModel, groundToLook) {
-  std::string fileName = "data/simpleFramerISD.json";
-  SensorModel* sensor = SensorModelFactory::create(fileName);
+  SensorModel* sensor = SensorModelFactory::create("data/simpleFramerISD.json");
 
   CartesianPoint groundPoint(0.0, 0.0, 0.0);
   CartesianVector lookVector = sensor->groundToLook(groundPoint);
@@ -23,8 +21,7 @@ TEST(CSMSensorModel, groundToLook) {
 }
 
 TEST(CSMSensorModel, imageTime) {
-  std::string fileName = "data/simpleFramerISD.json";
-  SensorModel* sensor = SensorModelFactory::create(fileName);
+  SensorModel* sensor = SensorModelFactory::create("data/simpleFramerISD.json");
 
   ImagePoint imagePoint(0.0, 0.0, 0.0);
   double time = sensor->imageTime(imagePoint);

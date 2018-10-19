@@ -21,13 +21,12 @@ CSMSensorModel::CSMSensorModel(csm::Model *model){
      }
      //Now get our CSMSensorModel Wrapper instantiates
     m_model = rasterGMModel;
-          //return std::unique_ptr<SensorModel>(csmSensorModel);
 };
 
 CartesianPoint CSMSensorModel::imageToGround(ImagePoint &imagePoint){
   csm::ImageCoord imageCoord = csm::ImageCoord(imagePoint.line, imagePoint.sample);
   //Passing band is incorret, need height.
-  csm::EcefCoord ground = m_model->imageToGround(imageCoord, imagePoint.band); 
+  csm::EcefCoord ground = m_model->imageToGround(imageCoord, imagePoint.band);
   CartesianPoint cground = CartesianPoint(ground.x, ground.y, ground.z);
   return cground;
   }
