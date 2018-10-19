@@ -12,7 +12,7 @@
 
 TEST(CSMSensorModel, groundToLook) {
   std::string fileName = "data/simpleFramerISD.json";
-  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create(fileName);
+  SensorModel* sensor = SensorModelFactory::create(fileName);
 
   CartesianPoint groundPoint(0.0, 0.0, 0.0);
   CartesianVector lookVector = sensor->groundToLook(groundPoint);
@@ -24,7 +24,7 @@ TEST(CSMSensorModel, groundToLook) {
 
 TEST(CSMSensorModel, imageTime) {
   std::string fileName = "data/simpleFramerISD.json";
-  std::unique_ptr<SensorModel> sensor = SensorModelFactory::create(fileName);
+  SensorModel* sensor = SensorModelFactory::create(fileName);
 
   ImagePoint imagePoint(0.0, 0.0, 0.0);
   double time = sensor->imageTime(imagePoint);
