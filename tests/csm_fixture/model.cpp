@@ -9,11 +9,7 @@
 
 using namespace std;
 
-FixtureSensorModel::FixtureSensorModel() {
-
-}
-
-
+FixtureSensorModel::FixtureSensorModel() {}
 FixtureSensorModel::~FixtureSensorModel() {}
 
 csm::ImageCoord FixtureSensorModel::groundToImage(const csm::EcefCoord &groundPt,
@@ -22,7 +18,7 @@ csm::ImageCoord FixtureSensorModel::groundToImage(const csm::EcefCoord &groundPt
                               csm::WarningList *warnings) const {
 
    csm::ImageCoord imagecoord = csm::ImageCoord(0,0);
-   
+
    // Check that the pixel is actually in the image
    if ((groundPt.x < 0) || (groundPt.y < 0)) {
       csm::ImageCoord imagecoord = csm::ImageCoord(-1,-1);

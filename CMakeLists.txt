@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
 project(sensorutils VERSION 0.1.1 DESCRIPTION "SensorUtils library")
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(cmake/gtest.cmake)
 include(GNUInstallDirs)
@@ -25,18 +24,21 @@ add_library(sensorutils SHARED
             src/shapemodel/BiAxialEllipsoid.cpp
             src/shapemodel/ShapeModel.cpp
             src/shapemodel/ShapeModelFactory.cpp
-  	        src/sensormodel/CSMSensorModel.cpp
-   	        src/sensormodel/SensorModelFactory.cpp)
+	          src/sensormodel/CSMSensorModel.cpp
+	          src/sensormodel/SensorModelFactory.cpp)
 
 if(COVERAGE)
     target_compile_options(sensorutils PRIVATE --coverage -O0)
     target_link_libraries(sensorutils PRIVATE --coverage -O0)
 endif()
 
+
+
 set_target_properties(sensorutils PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION 1
 )
+
 
 set(SENSORUTILS_PUBLIC_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/api")
 set(SENSORUTILS_PRIVATE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
@@ -47,8 +49,7 @@ target_include_directories(sensorutils
                            PRIVATE
                            ${SENSORUTILS_PRIVATE_INCLUDE_DIRS}
                            ${ARMADILLO_INCLUDE_DIRS}
-                           ${CSM_INCLUDE_DIR}
-                           ${CMAKE_CURRENT_SOURCE_DIR}/include/json)
+                           ${CSM_INCLUDE_DIR})
 
 
 target_link_libraries(sensorutils PUBLIC

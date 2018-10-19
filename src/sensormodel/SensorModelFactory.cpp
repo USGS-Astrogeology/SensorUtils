@@ -3,7 +3,6 @@
 #include <memory>
 #include <string>
 #include <typeinfo>
-#include <functional>
 
 #include <Plugin.h>
 #include <Model.h>

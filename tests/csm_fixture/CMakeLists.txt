@@ -1,9 +1,12 @@
-cmake_minimum_required(VERSION 3.10)
 
+add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_STANDARD 11)
 
 find_path(CSM_INCLUDE_DIR NAMES "csm.h"
             PATH_SUFFIXES "csm"
             PATHS $ENV{CONDA_PREFIX}/include/)
+
 find_library(CSM_LIBRARY csmapi PATHS $ENV{CONDA_PREFIX}/lib)
 
 add_library(fixturecsm SHARED
