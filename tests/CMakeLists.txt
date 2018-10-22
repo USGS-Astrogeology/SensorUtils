@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 include(${CMAKE_CURRENT_LIST_DIR}/csm_fixture/CMakeLists.txt)
-add_definitions(-D_GLIBCXX_USE_CXX11_ABI=1)
-set (CMAKE_CXX_STANDARD 11)
 
 set(COVERAGE OFF CACHE BOOL "Coverage")
 
