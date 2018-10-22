@@ -11,8 +11,8 @@
 #include "SensorModelFactory.h"
 
 Sensor::Sensor(const std::string &metaData, const std::string &sensorName) {
-  m_shapeModel = ShapeModelFactory::create("test");
-  m_sensorModel = SensorModelFactory::create("test");
+  m_shapeModel = ShapeModelFactory::create(metaData);
+  m_sensorModel = SensorModelFactory::create(metaData);
 }
 
 
