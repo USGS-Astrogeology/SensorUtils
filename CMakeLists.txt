@@ -8,11 +8,6 @@ include(GoogleTest)
 set(CMAKE_CXX_STANDARD 11)
 
 set(COVERAGE OFF CACHE BOOL "Coverage")
-set(PYBINDINGS ON CACHE BOOL "Turn on Python Bindings")
-
-if(PYBINDINGS)
-  include(${CMAKE_CURRENT_SOURCE_DIR}/pybindings/CMakeLists.txt)
-endif()
 
 # Third party dependencies
 find_package(Threads)
@@ -61,10 +56,16 @@ target_link_libraries(sensorutils PUBLIC
                       ${ARMADILLO_LIBRARIES}
                       ${CSM_LIBRARY})
 
+set(PYBINDINGS ON CACHE BOOL "Turn on Python Bindings")
+if(PYBINDINGS)
+  include(${CMAKE_CURRENT_SOURCE_DIR}/pybindings/CMakeLists.txt)
+endif()
+
 install(TARGETS sensorutils
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 install(DIRECTORY ${SENSORUTILS_PUBLIC_INCLUDE_DIRS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/sensorutils)
+
 
 option (BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)
