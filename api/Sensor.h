@@ -19,7 +19,8 @@ class Sensor {
     double phaseAngle(const CartesianPoint &groundPoint);
     double phaseAngle(const ImagePoint &imagePoint);
     double rightAscension(const CartesianVector &);
-
+    CartesianPoint imageToGround(ImagePoint &imagePoint);
+    ImagePoint groundToImage(CartesianPoint &imagePoint);
     CartesianPoint illuminatorPosition(ImagePoint imagePoint);
 
   private:

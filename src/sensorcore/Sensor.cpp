@@ -12,7 +12,7 @@
 
 Sensor::Sensor(const std::string &sensorName, const std::string &metaData) {
   m_shapeModel = ShapeModelFactory::create(metaData);
-  m_sensorModel = SensorModelFactory::create(metaData);
+  m_sensorModel = SensorModelFactory::create(sensorName);
 }
 
 
@@ -34,11 +34,9 @@ double Sensor::emissionAngle(const CartesianPoint &groundPoint) {
   return 0.0;
 }
 
-
-double Sensor::emissionAngle(const ImagePoint &imagePoint) {
+double Sensor::emissionAngle(const ImagePoint &groundPoint) {
   return 0.0;
 }
-
 
 /**
    * Computes and returns phase angle, in radians, given the positions of the
@@ -70,6 +68,16 @@ double Sensor::phaseAngle(const CartesianPoint &groundPoint) {
   if(cos_angle <= -1.0) return M_PI;
 
   return acos(cos_angle);
+}
+
+
+CartesianPoint Sensor::imageToGround(ImagePoint &imagePoint) {
+   return m_sensorModel->imageToGround(imagePoint);
+}
+
+
+ImagePoint Sensor::groundToImage(CartesianPoint &groundPoint) {
+   return m_sensorModel->groundToImage(groundPoint);
 }
 
 

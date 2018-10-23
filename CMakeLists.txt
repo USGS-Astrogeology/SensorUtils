@@ -8,6 +8,7 @@ include(GoogleTest)
 set(CMAKE_CXX_STANDARD 11)
 
 set(COVERAGE OFF CACHE BOOL "Coverage")
+set(PYBINDINGS ON CACHE BOOL "Turn on Python Bindings")
 
 # Third party dependencies
 find_package(Threads)
@@ -26,6 +27,10 @@ add_library(sensorutils SHARED
             src/shapemodel/ShapeModelFactory.cpp
 	          src/sensormodel/CSMSensorModel.cpp
 	          src/sensormodel/SensorModelFactory.cpp)
+
+if(PYBINDINGS)
+  include(${CMAKE_CURRENT_SOURCE_DIR}/python/CMakeLists.txt)
+endif()
 
 if(COVERAGE)
     target_compile_options(sensorutils PRIVATE --coverage -O0)

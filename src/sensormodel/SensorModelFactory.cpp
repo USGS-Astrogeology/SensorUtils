@@ -24,6 +24,8 @@ SensorModel* SensorModelFactory::create(const std::string &imagePath, std::strin
     // Load CSM Sensor Models
     // Grab the plugin object that has all plugins
     // only implements CSM, ISIS will come later
+    csm::WarningList *warninglist = new csm::WarningList();
+
     const csm::PluginList &plugins = csm::Plugin::getList();
     csm::Isd isd(imagePath);
     std::cout << plugins.size() << std::endl;
@@ -32,10 +34,15 @@ SensorModel* SensorModelFactory::create(const std::string &imagePath, std::strin
     for (auto const& pl : plugins) {
       for (int j=0;j <pl->getNumModels();++j) {
         std::string modelName = pl->getModelName(j);
-        if (pl->canModelBeConstructedFromISD(isd, modelName)) {
-          return new CSMSensorModel(pl->constructModelFromISD(isd, modelName));
+        if (pl->canModelBeConstructedFromISD(isd, modelName, warninglist)) {
+          return new CSMSensorModel(pl->constructModelFromISD(isd, modelName, warninglist));
         }
       }
     }
-    throw std::runtime_error("No Valid CSM Sensor Model Available for input: " + imagePath);
+    std::string warnings;
+    for (auto const& warning : *warninglist) {
+        warnings += warning.getMessage() + " @ " + warning.getFunction() + "\n";
+    }
+
+    throw std::runtime_error("No Valid CSM Sensor Model Available for input: " + imagePath + "\n" + "number of warnings: " + std::to_string(warninglist->size()) + "\n" + warnings);
 }
