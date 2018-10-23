@@ -12,14 +12,9 @@
  */
 CSMSensorModel::CSMSensorModel(csm::Model *model){
   csm::RasterGM *rasterGMModel;
-  try{
     // dynamic cast works on pointer or references
-     rasterGMModel = dynamic_cast<csm::RasterGM *>(model);
-     }
-     catch (std::bad_cast &e){
-     std::cout << e.what() << '\n'; // This looks like poor form to me, but how to pass?
-     }
-     //Now get our CSMSensorModel Wrapper instantiates
+    rasterGMModel = dynamic_cast<csm::RasterGM *>(model);
+    //Now get our CSMSensorModel Wrapper instantiates
     m_model = rasterGMModel;
 };
 
