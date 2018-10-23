@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
 	"model_name" : "USGS_ASTRO_FRAME_SENSOR_MODEL",
 	"center_ephemeris_time": 50,
 	"dt_ephemeris": 100,
@@ -144,4 +143,3 @@
 	"starting_detector_line": 0.0,
 	"starting_detector_sample": 0.0
 }
->>>>>>> f83dc49afa47eea799a178d046c9c5123482ac63

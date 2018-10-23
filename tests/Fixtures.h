@@ -13,7 +13,6 @@
 
 class SimpleSensorModel : public ::testing::Test {
       protected:
-
       ShapeModel *shape;
 
       void SetUp() override {
@@ -28,7 +27,7 @@ class SimpleSensorModel : public ::testing::Test {
 
 class SimpleSensor : public ::testing::Test {
       protected:
-
+      const double rad2deg = 180.0/M_PI;
       Sensor *sensor;
 
       void SetUp() override {

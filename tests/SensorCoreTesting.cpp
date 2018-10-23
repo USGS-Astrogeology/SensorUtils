@@ -9,7 +9,6 @@
 #include "Fixtures.h"
 
 TEST_F(SimpleSensor, AlphaCentauri) {
-  const double rad2deg = 180.0/M_PI;
   //coordinates are given in heliocentric-xyz parsecs
   //The truth data was taken from SIMBAD:
   //http://simbad.u-strasbg.fr/simbad/
@@ -20,8 +19,6 @@ TEST_F(SimpleSensor, AlphaCentauri) {
 
 
 TEST_F(SimpleSensor, AlphaCentauri2) {
-  // Sensor sensor("data/simpleFramerISD.json");
-  const double rad2deg = 180.0/M_PI;
   //coordinates are given in heliocentric-xyz parsecs
   //The truth data was taken from SIMBAD:
   //http://simbad.u-strasbg.fr/simbad/
