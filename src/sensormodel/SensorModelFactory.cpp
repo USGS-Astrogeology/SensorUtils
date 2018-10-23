@@ -26,6 +26,7 @@ SensorModel* SensorModelFactory::create(const std::string &imagePath, std::strin
     // only implements CSM, ISIS will come later
     const csm::PluginList &plugins = csm::Plugin::getList();
     csm::Isd isd(imagePath);
+    std::cout << plugins.size() << std::endl;
 
     // Now iterate through each plugin until we can construct a valid sensor model.
     for (auto const& pl : plugins) {

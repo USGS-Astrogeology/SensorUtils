@@ -9,7 +9,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(CSMSensorModel, groundToLook) {
+TEST(SimpleSensorModel, groundToLook) {
   SensorModel* sensor = SensorModelFactory::create("data/simpleFramerISD.json");
 
   CartesianPoint groundPoint(0.0, 0.0, 0.0);
@@ -20,7 +20,7 @@ TEST(CSMSensorModel, groundToLook) {
   EXPECT_DOUBLE_EQ(0.0, lookVector.z);
 }
 
-TEST(CSMSensorModel, imageTime) {
+TEST(SimpleSensorModel, imageTime) {
   SensorModel* sensor = SensorModelFactory::create("data/simpleFramerISD.json");
 
   ImagePoint imagePoint(0.0, 0.0, 0.0);
