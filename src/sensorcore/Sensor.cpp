@@ -10,7 +10,7 @@
 #include "ShapeModelFactory.h"
 #include "SensorModelFactory.h"
 
-Sensor::Sensor(const std::string &metaData, const std::string &sensorName) {
+Sensor::Sensor(const std::string &sensorName, const std::string &metaData) {
   m_shapeModel = ShapeModelFactory::create(metaData);
   m_sensorModel = SensorModelFactory::create(metaData);
 }

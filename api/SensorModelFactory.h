@@ -9,7 +9,7 @@
 class SensorModelFactory {
 
   public:
-    static SensorModel* create(const std::string &metadata);
+    static SensorModel* create(const std::string &imagePath, std::string metadata=std::string());
 
   private:
     SensorModelFactory();

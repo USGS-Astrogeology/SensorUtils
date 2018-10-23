@@ -11,7 +11,7 @@
 class Sensor {
 
   public:
-    Sensor(const std::string &metaData, const std::string &sensorName);
+    Sensor(const std::string &sensorName, const std::string &metaData="");
 
     double declination(const CartesianVector &);
     double emissionAngle(const CartesianPoint &groundPoint);

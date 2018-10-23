@@ -7,8 +7,9 @@
 
 #include "BiAxialEllipsoid.h"
 #include "ShapeModel.h"
+#include "Sensor.h"
 #include "SensorModelFactory.h"
-
+#include "ShapeModelFactory.h"
 
 class SimpleSensorModel : public ::testing::Test {
       protected:
@@ -23,6 +24,23 @@ class SimpleSensorModel : public ::testing::Test {
         delete shape;
       }
 };
+
+
+class SimpleSensor : public ::testing::Test {
+      protected:
+
+      Sensor *sensor;
+
+      void SetUp() override {
+        sensor = new Sensor("data/simpleFramerISD.json", "{\"semiminor\":10, \"semimajor\":10}");
+      }
+
+      void TearDown() override {
+        delete sensor;
+      }
+};
+
+
 
 
 

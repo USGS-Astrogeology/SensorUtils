@@ -4,12 +4,13 @@
 
 #include "sensorcore.h"
 #include "SensorMath.h"
+#include "Sensor.h"
 #include "SensorModel.h"
 #include "SensorModelFactory.h"
 
 #include <gtest/gtest.h>
 
-TEST(SimpleSensorModel, groundToLook) {
+TEST(CSMSensorModel, groundToLook) {
   SensorModel* sensor = SensorModelFactory::create("data/simpleFramerISD.json");
 
   CartesianPoint groundPoint(0.0, 0.0, 0.0);
@@ -20,7 +21,7 @@ TEST(SimpleSensorModel, groundToLook) {
   EXPECT_DOUBLE_EQ(0.0, lookVector.z);
 }
 
-TEST(SimpleSensorModel, imageTime) {
+TEST(CSMSensorModel, imageTime) {
   SensorModel* sensor = SensorModelFactory::create("data/simpleFramerISD.json");
 
   ImagePoint imagePoint(0.0, 0.0, 0.0);
