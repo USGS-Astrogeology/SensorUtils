@@ -10,6 +10,10 @@ set(CMAKE_CXX_STANDARD 11)
 set(COVERAGE OFF CACHE BOOL "Coverage")
 set(PYBINDINGS ON CACHE BOOL "Turn on Python Bindings")
 
+if(PYBINDINGS)
+  include(${CMAKE_CURRENT_SOURCE_DIR}/pybindings/CMakeLists.txt)
+endif()
+
 # Third party dependencies
 find_package(Threads)
 find_package(Armadillo REQUIRED)
@@ -28,9 +32,6 @@ add_library(sensorutils SHARED
 	          src/sensormodel/CSMSensorModel.cpp
 	          src/sensormodel/SensorModelFactory.cpp)
 
-if(PYBINDINGS)
-  include(${CMAKE_CURRENT_SOURCE_DIR}/python/CMakeLists.txt)
-endif()
 
 if(COVERAGE)
     target_compile_options(sensorutils PRIVATE --coverage -O0)
