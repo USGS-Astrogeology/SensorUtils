@@ -36,7 +36,7 @@ install:
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda install -y gxx_linux-64
   - conda install -y -c conda-forge cmake armadillo swig python=3.7
-  - conda install -y -c usgs-astrogeology csmapi libcsm
+  - conda install -y -c usgs-astrogeology libcsm
 
 script:
   - mkdir build

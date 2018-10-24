@@ -6,8 +6,8 @@ set(COVERAGE OFF CACHE BOOL "Coverage")
 find_path(CSM_INCLUDE_DIR NAMES "csm.h"
             PATH_SUFFIXES "csm"
             PATHS $ENV{CONDA_PREFIX}/include/)
-find_library(CSM_LIBRARY csmapi PATHS $ENV{CONDA_PREFIX}/lib)
-
+find_library(CSM_LIBRARY csm PATHS $ENV{CONDA_PREFIX}/lib)
+message(STATUS "FOUND CSM LIBRARY: ${CSM_LIBRARY}")
 
 # Link runSensorUtilsTests with what we want to test and the GTest and pthread library
 
