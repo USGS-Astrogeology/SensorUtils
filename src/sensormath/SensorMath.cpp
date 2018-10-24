@@ -11,50 +11,50 @@ using namespace arma;
 namespace {
   // cartesian point -> arma::vec
   vec cartesianToVec(CartesianPoint point) {
-    return vec {point.x, point.y, point.z}; 
+    return vec {point.x, point.y, point.z};
   }
 
 
   // arma::vec -> CartesianPoint
   CartesianVector vecToCartesian(vec vec) {
-    return CartesianVector(vec[0], vec[1], vec[2]); 
+    return CartesianVector(vec[0], vec[1], vec[2]);
   }
 
 
   // cartesian point -> arma::vec
   vec imageToVec(ImagePoint point) {
-    return vec {point.sample, point.line, point.band}; 
+    return vec {point.sample, point.line, point.band};
   }
 
 
   // arma::vec -> ImagePoint
   ImagePoint vecToImage(vec vec) {
-    return ImagePoint(vec[0], vec[1], vec[2]); 
+    return ImagePoint(vec[0], vec[1], vec[2]);
   }
 
 }
 
 namespace sensormath {
-  
+
   // Calculates the angle between two vectors
   double angle(CartesianVector ray1, CartesianVector ray2) {
     if (approx_equal(cartesianToVec(ray1), cartesianToVec(ray2),
         "absdiff", 1e-4)) {
-      return 0.0; 
+      return 0.0;
     }
 
-    return acos(norm_dot(cartesianToVec(ray1), cartesianToVec(ray2))); 
+    return acos(norm_dot(cartesianToVec(ray1), cartesianToVec(ray2)));
   }
 
 
   /**
-   * Computes the Euclidean distance between two CartesianPoints in the units they are provided 
-   * in.  
+   * Computes the Euclidean distance between two CartesianPoints in the units they are provided
+   * in.
    *
    * @author Ian Humphrey
    *
-   * @param point1 The first Cartesian Point to calculate the distance from. 
-   * @param point2 The second Cartesian Point to calculate the distance to. 
+   * @param point1 The first Cartesian Point to calculate the distance from.
+   * @param point2 The second Cartesian Point to calculate the distance to.
    *
    * @return double Returns the Euclidean distance
    */
@@ -62,7 +62,7 @@ namespace sensormath {
                   CartesianPoint& point2) {
     vec point1Vector = cartesianToVec(point1);
     vec point2Vector = cartesianToVec(point2);
-    vec distanceVector = point1Vector - point2Vector; 
+    vec distanceVector = point1Vector - point2Vector;
     return as_scalar(norm(distanceVector));
   }
 
@@ -104,6 +104,12 @@ namespace sensormath {
     vec minuend = cartesianToVec(vector1);
     vec subtrahend = cartesianToVec(vector2);
     return vecToCartesian(minuend - subtrahend);
+  }
+
+  CartesianVector add(CartesianVector vector1, CartesianVector vector2) {
+    vec minuend = cartesianToVec(vector1);
+    vec subtrahend = cartesianToVec(vector2);
+    return vecToCartesian(minuend + subtrahend);
   }
 
 
