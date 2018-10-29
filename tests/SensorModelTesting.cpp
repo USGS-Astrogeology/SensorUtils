@@ -30,4 +30,17 @@ TEST(CSMSensorModel, imageTime) {
   EXPECT_DOUBLE_EQ(0.0, time);
 }
 
+
+TEST(CSMSensorModel, badImage) {
+  try{
+    SensorModel* sensor = SensorModelFactory::create("error");
+ }
+ catch(std::runtime_error) {
+   return;
+ }
+ catch(...) {
+   FAIL() << "Expected Runtime Error";
+ }
+}
+
 // TODO: add tests for other methods

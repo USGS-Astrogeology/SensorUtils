@@ -40,7 +40,7 @@ SensorModel* SensorModelFactory::create(const std::string &imagePath, std::strin
       }
     }
 
-    // should help with some debuggin for now
+    // should help with some debugging for now
     std::string warnings;
     for (auto const& warning : *warninglist) {
         warnings += warning.getMessage() + " @ " + warning.getFunction() + "\n";

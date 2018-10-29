@@ -54,7 +54,7 @@ double Sensor::emissionAngle(const ImagePoint &groundPoint) {
    */
 double Sensor::phaseAngle(const CartesianPoint &groundPoint) {
   CartesianPoint input = groundPoint;
-  ImagePoint imagePoint = m_sensorModel->groundToImage(input);
+  ImagePoint imagePoint = groundToImage(input);
   CartesianPoint sensorPosition = m_sensorModel->getSensorPosition(imagePoint);
   CartesianPoint sunPosition = illuminatorPosition(imagePoint);
 
@@ -97,7 +97,7 @@ ImagePoint Sensor::groundToImage(CartesianPoint &groundPoint) {
    */
 double Sensor::phaseAngle(const ImagePoint &imagePoint) {
   ImagePoint input = imagePoint;
-  CartesianPoint groundPoint = m_sensorModel->imageToGround(input);
+  CartesianPoint groundPoint = imageToGround(input);
   CartesianPoint sensorPosition = m_sensorModel->getSensorPosition(input);
   CartesianPoint sunDirection = illuminatorPosition(input);
 
@@ -127,7 +127,7 @@ CartesianPoint Sensor::illuminatorPosition(ImagePoint imagePoint) {
   // sun pos (center body to center sun)
   // is body fixed ground coordinated (center body to ground point)
   // minus the illumination direction (center sun to ground point)
-  CartesianPoint groundPoint = m_sensorModel->imageToGround(imagePoint);
+  CartesianPoint groundPoint = imageToGround(imagePoint);
   CartesianVector illuminatorDirection = m_sensorModel->getIlluminationDirection(groundPoint);
 
   return sensormath::add(illuminatorDirection, groundPoint);
