@@ -38,20 +38,18 @@ add_library(sensorutils SHARED
 	          src/sensormodel/CSMSensorModel.cpp
 	          src/sensormodel/SensorModelFactory.cpp)
 
+
 if(COVERAGE)
     target_compile_options(sensorutils PRIVATE --coverage -O0)
     target_link_libraries(sensorutils PRIVATE --coverage -O0)
 endif()
-
-
 
 set_target_properties(sensorutils PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION 1
 )
 
-
-set(SENSORUTILS_PUBLIC_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/api")
+set(SENSORUTILS_PUBLIC_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/api/")
 set(SENSORUTILS_PRIVATE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 target_include_directories(sensorutils
@@ -60,7 +58,8 @@ target_include_directories(sensorutils
                            PRIVATE
                            ${SENSORUTILS_PRIVATE_INCLUDE_DIRS}
                            ${ARMADILLO_INCLUDE_DIRS}
-                           ${CSM_INCLUDE_DIR})
+                           ${CSM_INCLUDE_DIR}
+                           ${CMAKE_CURRENT_SOURCE_DIR}/include/json)
 
 
 target_link_libraries(sensorutils PUBLIC
@@ -68,10 +67,16 @@ target_link_libraries(sensorutils PUBLIC
                       ${ARMADILLO_LIBRARIES}
                       ${CSM_LIBRARY})
 
+set(PYBINDINGS ON CACHE BOOL "Turn on Python Bindings")
+if(PYBINDINGS)
+  include(${CMAKE_CURRENT_SOURCE_DIR}/pybindings/CMakeLists.txt)
+endif()
+
 install(TARGETS sensorutils
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
-install(DIRECTORY ${SENSORUTILS_INCLUDE_DIRS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/sensorutils)
+install(DIRECTORY ${SENSORUTILS_PUBLIC_INCLUDE_DIRS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/sensorutils)
+
 
 option (BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)

@@ -4,6 +4,7 @@
 
 #include "sensorcore.h"
 #include "SensorMath.h"
+#include "Sensor.h"
 #include "SensorModel.h"
 #include "SensorModelFactory.h"
 
@@ -27,6 +28,19 @@ TEST(CSMSensorModel, imageTime) {
   double time = sensor->imageTime(imagePoint);
 
   EXPECT_DOUBLE_EQ(0.0, time);
+}
+
+
+TEST(CSMSensorModel, badImage) {
+  try{
+    SensorModel* sensor = SensorModelFactory::create("error");
+ }
+ catch(std::runtime_error& e) {
+   return;
+ }
+ catch(...) {
+   FAIL() << "Expected Runtime Error";
+ }
 }
 
 // TODO: add tests for other methods

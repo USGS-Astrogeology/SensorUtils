@@ -12,14 +12,9 @@
  */
 CSMSensorModel::CSMSensorModel(csm::Model *model){
   csm::RasterGM *rasterGMModel;
-  try{
     // dynamic cast works on pointer or references
-     rasterGMModel = dynamic_cast<csm::RasterGM *>(model);
-     }
-     catch (std::bad_cast &e){
-     std::cout << e.what() << '\n'; // This looks like poor form to me, but how to pass?
-     }
-     //Now get our CSMSensorModel Wrapper instantiates
+    rasterGMModel = dynamic_cast<csm::RasterGM *>(model);
+    //Now get our CSMSensorModel Wrapper instantiates
     m_model = rasterGMModel;
 };
 
@@ -39,7 +34,7 @@ CartesianVector CSMSensorModel::groundToLook(CartesianPoint &groundPoint){
   return CartesianVector{0,0,0};
   }
 
-double CSMSensorModel::imageTime(ImagePoint &imagePoint){
+double CSMSensorModel::imageTime(ImagePoint &imagePoint) {
   csm::ImageCoord imageCoord = csm::ImageCoord(imagePoint.line, imagePoint.sample);
   return m_model->getImageTime(imageCoord);
   }
@@ -49,6 +44,8 @@ CartesianPoint CSMSensorModel::getSensorPosition(ImagePoint &imagePoint){
   }
 
 
-CartesianPoint CSMSensorModel::getIlluminationDirection(CartesianPoint &imagePoint){
-  return CartesianPoint{0,0,0};
+CartesianPoint CSMSensorModel::getIlluminationDirection(CartesianPoint &point){
+  csm::EcefVector p = csm::EcefVector(point.x, point.y, point.z);
+  csm::EcefVector v =  m_model->getIlluminationDirection(csm::EcefCoord(p.x, p.y, p.z));
+  return CartesianPoint(v.x, v.y, v.z);
   }

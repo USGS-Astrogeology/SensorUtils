@@ -9,7 +9,7 @@
 class ShapeModelFactory {
 
   public:
-    static ShapeModel* create(const std::string &imagePath);
+    static ShapeModel* create(const std::string& metadata);
 
   private:
     ShapeModelFactory();

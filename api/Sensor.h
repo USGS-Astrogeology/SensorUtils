@@ -11,7 +11,7 @@
 class Sensor {
 
   public:
-    Sensor(const std::string &metaData, const std::string &sensorName);
+    Sensor(const std::string &sensorName, const std::string &metaData="");
 
     double declination(const CartesianVector &);
     double emissionAngle(const CartesianPoint &groundPoint);
@@ -19,7 +19,8 @@ class Sensor {
     double phaseAngle(const CartesianPoint &groundPoint);
     double phaseAngle(const ImagePoint &imagePoint);
     double rightAscension(const CartesianVector &);
-
+    CartesianPoint imageToGround(ImagePoint &imagePoint);
+    ImagePoint groundToImage(CartesianPoint &imagePoint);
     CartesianPoint illuminatorPosition(ImagePoint imagePoint);
 
   private:
