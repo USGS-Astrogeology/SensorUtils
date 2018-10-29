@@ -14,7 +14,6 @@ swig_add_library(sensors
                  LANGUAGE python
                  SOURCES ../SensorUtils.i)
 set_target_properties(_sensors PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SWIG_OUTDIR})
-add_dependencies(_sensors sensorutils)
 
 swig_link_libraries(sensors sensorutils ${PYTHON_LIBRARY})
 

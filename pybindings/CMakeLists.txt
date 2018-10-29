@@ -4,4 +4,3 @@ find_package(SWIG REQUIRED)
 include(${SWIG_USE_FILE})
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/python)
-# add_subdirectory(fixture)
