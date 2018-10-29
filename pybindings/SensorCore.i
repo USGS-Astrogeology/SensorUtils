@@ -2,4 +2,4 @@
 %{
     #include "sensorcore.h"
 %}
-%include "SensorCore.h"
+%include "sensorcore.h"
