@@ -35,7 +35,7 @@ TEST(CSMSensorModel, badImage) {
   try{
     SensorModel* sensor = SensorModelFactory::create("error");
  }
- catch(std::runtime_error) {
+ catch(std::runtime_error& e) {
    return;
  }
  catch(...) {

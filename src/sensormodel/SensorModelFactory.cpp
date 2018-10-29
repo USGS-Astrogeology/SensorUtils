@@ -28,7 +28,6 @@ SensorModel* SensorModelFactory::create(const std::string &imagePath, std::strin
 
     const csm::PluginList &plugins = csm::Plugin::getList();
     csm::Isd isd(imagePath);
-    std::cout << plugins.size() << std::endl;
 
     // Now iterate through each plugin until we can construct a valid sensor model.
     for (auto const& pl : plugins) {
@@ -40,11 +39,5 @@ SensorModel* SensorModelFactory::create(const std::string &imagePath, std::strin
       }
     }
 
-    // should help with some debugging for now
-    std::string warnings;
-    for (auto const& warning : *warninglist) {
-        warnings += warning.getMessage() + " @ " + warning.getFunction() + "\n";
-    }
-
-    throw std::runtime_error("No Valid CSM Sensor Model Available for input: " + imagePath + "\n" + "number of warnings: " + std::to_string(warninglist->size()) + "\n" + warnings);
+    throw std::runtime_error("No Valid CSM Sensor Model Available for input: " + imagePath);
 }
